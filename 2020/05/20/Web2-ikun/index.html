@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#33474d">
+	<title>Web2]ikun | Hexo</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	
+      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+	<header class="header">
+		<nav class="header__nav">
+			
+				<a href="/archives" class="header__link">Archive</a>
+			
+		</nav>
+		<h1 class="header__title"><a href="/">Hexo</a></h1>
+		<h2 class="header__subtitle"></h2>
+	</header>
+
+	<main>
+		<article>
+	
+		<h1>Web2]ikun</h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-20</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<p>注册登录后，页面是一个购买lv等级的页面。先随便尝试买一个lv。发现均是购买失败。<br><img src="1.png" alt=""></p>
+<p>这里可以看到提示说一定要买到lv6。随便翻了几页也没有找到lv6。写个脚本。</p>
+<p><img src="2.png" alt="">跑出来结果在p181。</p>
+<p><img src="3.png" alt=""></p>
+<p>这里也是一个结算页面。但支付的金额根本不够，抓包。<br><img src="4.png" alt=""></p>
+<p>这里存在一个薅羊毛漏洞，把discount改为0.00000001。发过去</p>
+<p><img src="5.png" alt=""></p>
+<p>显示只有管理员才能登陆。从之前抓的包可以看到cookie内是存在jwt的。将cookie内的jwt放到<a href="https://jwt.io/" target="_blank" rel="noopener">jwt生成网站</a>。<br><img src="6.png" alt=""></p>
+<p>usrname正是我们注册的用户名。在kali上破解一下jwt的密钥<br><img src="7.png" alt=""></p>
+<p>密钥是1Kun</p>
+<p><img src="8.png" alt=""></p>
+<p>把username改为admin，输入密钥，就可以生成对应的jwt。此时cookie内改成我们伪造的jwt。再次发包过去。已经登录进去了。</p>
+<p><img src="9.png" alt=""></p>
+<p>查看源码，这里有一份备份文件。</p>
+<p><img src="10.png" alt=""></p>
+<p>审计一下源码。在Admin.py 有个反序列化点。这里接受become的值并将其反序列化。由于没有对become的值做限制，我们可以自己构造一个类和对象，并在其中执行shell命令。由于<code>__reduce__</code>是在反序列化时自动执行，所以选取它做魔术方法。<br><img src="11.png" alt=""></p>
+<p>贴上python脚本</p>
+<p><img src="12.png" alt=""></p>
+<p>这里有几个需要注意的点：</p>
+<ol>
+<li>源码是在python2的环境下执行的，脚本也需要在python2上执行，这里我选的是python2.7。在python3.x上试过会出问题。</li>
+<li>payload这个类必须继承object，否则不会拥有<code>__reduce__</code>这个魔术方法。这个还是python2和python3的版本问题。</li>
+</ol>
+<p><a href="https://blog.csdn.net/qq_27828675/article/details/79358893" target="_blank" rel="noopener">关于Python中object的继承问题</a></p>
+<p>执行结果如下，</p>
+<p><img src="13.png" alt=""></p>
+<p>最后点击一键成为大会员。修改数据包。修改become的数据即可得到flag。</p>
+
+	
+
+	
+		<span class="different-posts"><a href="/2020/05/20/Web2-ikun/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
+
+	
+
+</article>
+
+	</main>
+
+	<footer class="footer">
+	<div class="footer-content">
+		
+	      <div class="footer__element">
+	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
+</div>
+
+	    
+	      <div class="footer__element">
+	<h5>Check out</h5>
+	<ul class="footer-links">
+		<li class="footer-links__link"><a href="/archives">Archive</a></li>
+		
+		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
+	    
+		<li class="footer-links__link"><a href="/about">about page</a></li>
+		<li class="footer-links__link"><a href="/tags">Tags</a></li>
+		<li class="footer-links__link"><a href="/categories">Categories</a></li>
+	</ul>
+</div>
+
+	    
+
+		<div class="footer-credit">
+			<span>© 2020 John Doe | Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo" target="_blank" rel="noopener">MeiliDu</a></span>
+		</div>
+
+	</div>
+
+
+</footer>
+
+
+
+</body>
+
+</html>

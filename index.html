@@ -1,196 +1,364 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#33474d">
+	<title>Hexo</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	
+      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
 <meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/23/hello-world/" class="article-date">
-  <time datetime="2020-05-23T13:21:32.036Z" itemprop="datePublished">2020-05-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/23/hello-world/">Hello World</a>
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+	<header class="header">
+		<nav class="header__nav">
+			
+				<a href="/archives" class="header__link">Archive</a>
+			
+		</nav>
+		<h1 class="header__title"><a href="/">Hexo</a></h1>
+		<h2 class="header__subtitle"></h2>
+	</header>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+	<main>
+		
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+	<article>
+	
+		<h1><a href="/2020/05/20/Web2-ikun/">Web2]ikun</a></h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-20</span><br />
+		
+		
+	</div>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/23/hello-world/" data-id="ckajoh8cl0000kwu3cj2z23c9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+	
+
+	
+		<p>注册登录后，页面是一个购买lv等级的页面。先随便尝试买一个lv。发现均是购买失败。<br><img src="1.png" alt=""></p>
+<p>这里可以看到提示说一定要买到lv6。随便翻了几页也没有找到lv6。写个脚本。</p>
+<p><img src="2.png" alt="">跑出来结果在p181。</p>
+<p><img src="3.png" alt=""></p>
+<p>这里也是一个结算页面。但支付的金额根本不够，抓包。<br><img src="4.png" alt=""></p>
+<p>这里存在一个薅羊毛漏洞，把discount改为0.00000001。发过去</p>
+<p><img src="5.png" alt=""></p>
+<p>显示只有管理员才能登陆。从之前抓的包可以看到cookie内是存在jwt的。将cookie内的jwt放到<a href="https://jwt.io/" target="_blank" rel="noopener">jwt生成网站</a>。<br><img src="6.png" alt=""></p>
+<p>usrname正是我们注册的用户名。在kali上破解一下jwt的密钥<br><img src="7.png" alt=""></p>
+<p>密钥是1Kun</p>
+<p><img src="8.png" alt=""></p>
+<p>把username改为admin，输入密钥，就可以生成对应的jwt。此时cookie内改成我们伪造的jwt。再次发包过去。已经登录进去了。</p>
+<p><img src="9.png" alt=""></p>
+<p>查看源码，这里有一份备份文件。</p>
+<p><img src="10.png" alt=""></p>
+<p>审计一下源码。在Admin.py 有个反序列化点。这里接受become的值并将其反序列化。由于没有对become的值做限制，我们可以自己构造一个类和对象，并在其中执行shell命令。由于<code>__reduce__</code>是在反序列化时自动执行，所以选取它做魔术方法。<br><img src="11.png" alt=""></p>
+<p>贴上python脚本</p>
+<p><img src="12.png" alt=""></p>
+<p>这里有几个需要注意的点：</p>
+<ol>
+<li>源码是在python2的环境下执行的，脚本也需要在python2上执行，这里我选的是python2.7。在python3.x上试过会出问题。</li>
+<li>payload这个类必须继承object，否则不会拥有<code>__reduce__</code>这个魔术方法。这个还是python2和python3的版本问题。</li>
+</ol>
+<p><a href="https://blog.csdn.net/qq_27828675/article/details/79358893" target="_blank" rel="noopener">关于Python中object的继承问题</a></p>
+<p>执行结果如下，</p>
+<p><img src="13.png" alt=""></p>
+<p>最后点击一键成为大会员。修改数据包。修改become的数据即可得到flag。</p>
+
+	
+
+	
+
 </article>
 
 
-  
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+	<article>
+	
+		<h1><a href="/2020/05/16/python序列化以及对应魔术方法/">python序列化以及对应魔术方法</a></h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-16</span><br />
+		
+		
+	</div>
 
-  
-    
+	
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
-    </div>
-  </div>
+	
+		<p>ctf中python序列化和反序列的题目还是挺多的，一般在利用反序列化时都会涉及到对应的魔术方法，和php很类似。在这里也做个总结，免得遇到的时候四处查。</p>
+<h2 id="pickle模块"><a href="#pickle模块" class="headerlink" title="pickle模块"></a>pickle模块</h2><ol>
+<li><p>pickle模块只能在python中使用，且只支持python的基础数据类型</p>
+</li>
+<li><p>序列化的时候，只是序列化了整个序列对象，而不是内存地址。</p>
+</li>
+<li><p>序列化：</p>
+<ul>
+<li><p><code>pickle.dump()</code>方法将obj对象序列化为bytes写入到file文件中</p>
+<p><code>pickle.dump(obj, file, protocol=None, *, fix_imports=True)</code></p>
+</li>
+</ul>
+<ul>
+<li><p><code>pickle.dumps()</code>方法将obj对象序列化并返回一个bytes对象</p>
+<p><code>pickle.dumps(obj, protocol=None, *, fix_imports=True)</code></p>
+</li>
+</ul>
+</li>
+<li><p>反序列化：</p>
+<ul>
+<li><p><code>pickle.load()</code>从一个对象文件中读取序列化数据，将其反序列化之后返回一个对象</p>
+<p><code>pickle.load(file, *, fix_imports=True, encoding=&quot;ASCII&quot;, errors=&quot;strict&quot;)</code></p>
+</li>
+</ul>
+<ul>
+<li><p><code>pickle.loads()</code>将bytes反序列化并返回一个对象</p>
+<p><code>pickle.loads(bytes_object, *, fix_imports=True, encoding=&quot;ASCII&quot;, errors=&quot;strict&quot;)</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="序列化与反序列化中使用的魔术方法"><a href="#序列化与反序列化中使用的魔术方法" class="headerlink" title="序列化与反序列化中使用的魔术方法"></a>序列化与反序列化中使用的魔术方法</h2><p><figure class="figure"><img src="1.png" alt=""></figure></p>
+
+	
+
+	
+
+</article>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/05/23/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+
+	<article>
+	
+		<h1><a href="/2020/05/15/JT/">JWT</a></h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-15</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<h3 id="JWT是一种跨域身份验证的解决方案。"><a href="#JWT是一种跨域身份验证的解决方案。" class="headerlink" title="JWT是一种跨域身份验证的解决方案。"></a>JWT是一种跨域身份验证的解决方案。</h3><ol>
+<li><p>要说JWT，必须先说一下session。session分为会话session和持久session。</p>
+<ul>
+<li><p>会话session:只作用于本次会话，此时的session存储在浏览器内存中。当用户关闭浏览器后，此次session会过期。如果用户打开浏览器想继续这次会话的时候,就会因为发送的请求中没有这个sessionid而使服务器无法辨别该把那个session信息给他,注意(这个时候服务器端的sessionid和sessionid所指向的session都还存在,只是没有正确的sessionid和它匹配而占用服务器内存,只有session过期或服务器重启才释放内存</p>
+</li>
+<li><p>持久session:把cookie固化在用户的计算机上,可以在多次绘画中使用使用。现在的cookie不单单能存放sessionid,还能放用户信息,样式表信息等。持久化session也是实现跨域身份验证的一种解决方案。</p>
+</li>
+</ul>
+</li>
+<li><p>现在可以说到JWT了。当用传统的持久session来解决跨域身份验证时，有一个缺点在于此时session都是依赖于持久层的数据库或者问题系统，会有单点风险，如果持久层失败，整个认证体系都会挂掉。而JWT通过客户端保存数据，服务器根本不保存会话数据，每个请求都被发送回服务器。</p>
+</li>
+<li><p>JWT的原则是在服务器身份验证之后，将生成一个JSON对象并将其发送回用户，之后，当用户与服务器通信时，客户在请求中发回JSON对象。服务器仅依赖于这个JSON对象来标识用户。为了防止用户篡改数据，服务器将在生成对象时添加签名。</p>
+</li>
+<li><p>JWT分为三个部分。JWT头、有效载荷和签名。JWT将三个部分通过“.”连接在一起形成一个很长的字符串</p>
+<ul>
+<li><p>JWT头部分是一个描述JWT元数据的JSON对象，如：</p>
+<p><code>{</code></p>
+<p><code>&quot;alg&quot;: &quot;HS256&quot;,</code></p>
+<p> <code>&quot;typ&quot;: &quot;JWT&quot;  }</code></p>
+</li>
+<li><p>有效载荷，有效载荷部分，是JWT的主体内容部分，也是一个JSON对象，包含需要传递的数据。 JWT指定七个默认字段供选择。</p>
+<p>iss：发行人</p>
+<p>exp：到期时间</p>
+<p>sub：主题</p>
+<p>aud：用户</p>
+<p>nbf：在此之前不可用</p>
+<p>iat：发布时间</p>
+<p>jti：JWT ID用于标识该JWT</p>
+<p>除以上默认字段外，我们还可以自定义私有字段，如下例：</p>
+<p><code>{</code></p>
+<p>  <code>&quot;sub&quot;: &quot;1234567890&quot;,</code></p>
+<p> <code>&quot;name&quot;: &quot;chongchong&quot;,</code></p>
+<p>  <code>&quot;admin&quot;: true</code></p>
+<p> <code>}</code></p>
+</li>
+</ul>
+<ul>
+<li>签名哈希部分是对上面两部分数据签名，通过指定的算法生成哈希，以确保数据不会被篡改。</li>
+</ul>
+</li>
+<li><p>JWT的使用</p>
+<p> 客户端接收服务器返回的JWT，将其存储在Cookie或localStorage中。<br>此后，客户端将在与服务器交互中都会带JWT。如果将它存储在Cookie中，就可以自动发送，但是不会跨域，因此一般是将它放入HTTP请求的Header Authorization字段中。</p>
+<p> Authorization: Bearer</p>
+<p> 当跨域时，也可以将JWT被放置于POST请求的数据主体中。</p>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li><p>JWT默认不加密，但可以加密。生成原始令牌后，可以使用改令牌再次对其进行加密。</p>
+</li>
+<li><p>当JWT未加密方法时，一些私密数据无法通过JWT传输。</p>
+</li>
+<li><p>JWT不仅可用于认证，还可用于信息交换。善用JWT有助于减少服务器请求数据库的次数。</p>
+</li>
+<li><p>JWT的最大缺点是服务器不保存会话状态，所以在使用期间不可能取消令牌或更改令牌的权限。也就是说，一旦JWT签发，在有效期内将会一直有效。</p>
+</li>
+<li><p>JWT本身包含认证信息，因此一旦信息泄露，任何人都可以获得令牌的所有权限。为了减少盗用，JWT的有效期不宜设置太长。对于某些重要操作，用户在使用时应该每次都进行进行身份验证。</p>
+</li>
+<li><p>为了减少盗用和窃取，JWT不建议使用HTTP协议来传输代码，而是使用加密的HTTPS协议进行传输。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>PS：JWT是可破解和伪造的。在这里附上WJT破解工具和生成链接</p>
+<p><a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">破解工具</a> </p>
+<p><a href="https://jwt.io/" target="_blank" rel="noopener">生成网站</a></p>
+<p><a href="https://www.cnblogs.com/zhangxp1129/archive/2012/08/20/2647767.html" target="_blank" rel="noopener">参考链接</a></p>
+<p><a href="https://baijiahao.baidu.com/s?id=1608021814182894637&wfr=spider&for=pc" target="_blank" rel="noopener">参考链接</a></p>
+
+	
+
+	
+
+</article>
+
+
+
+
+	<article>
+	
+		<h1><a href="/2020/05/15/WesternCTF2018-shrine/">[WesternCTF2018]shrine</a></h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-15</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<p>打开界面出现源码，是一个flask的框架。审计一下</p>
+<p><figure class="figure"><img src="1.png" alt=""></figure></p>
+<p>1.设置app的配置文件为flag同时删除环境变量中的flag。那么就是要想办法从配置文件中获取flag了。</p>
+<p>2.<figure class="figure"><img src="2.png" alt=""></figure></p>
+<p>这里过滤掉了<code>()</code>以及config、self。那么就不能直接通过<code></code>或<code></code>来获取配置文件了<br>。<code>self.__dict__</code>内存储着类的静态函数、类函数、普通函数、全局变量以及一些内置的属性。也不能使用<code>__subclasses__()</code>来执行shell命令</p>
+<p>最后<code>return flask.render_template_string(safe_jinja(shrine))</code>语句可以确认存在着注入点。先测试一下</p>
+<p><code>http://e91f3d14-bdaa-4601-86c4-ebe6cc5d478e.node3.buuoj.cn/shrine/%7B%7B2*2%7D%7D</code></p>
+<p><figure class="figure"><img src="3.png" alt=""></figure></p>
+<p>3.这里可以用<code>get_flashed_messages(), url_for()</code>来读取配置文件</p>
+<p><code>url_for()</code></p>
+<p>一般我们通过一个URL就可以执行到某一个函数。如果反过来，我们知道一个函数，怎么去获得这个URL呢？url_for函数就可以帮我们实现这个功能。url_for()函数接收两个及以上的参数，他接收函数名作为第一个参数，接收对应URL规则的命名参数，如果还出现其他的参数，则会添加到URL的后面作为查询参数。</p>
+<p><code>get_flashed_messages()</code></p>
+<p>返回之前在Flask中通过 flash() 传入的闪现信息列表。把字符串对象表示的消息加入到一个消息队列中，然后通过调用get_flashed_messages() 方法取出(闪现信息只能取出一次，取出后闪现信息会被清空)。</p>
+<p>个人理解这两个函数都用于flask，他的全局属性中也就会存储flask当前对象的许多信息，包括配置信息。</p>
+<p>3.这里试例url_for()。payload:</p>
+<p><code>http://e91f3d14-bdaa-4601-86c4-ebe6cc5d478e.node3.buuoj.cn/shrine/%7B%7Burl_for.__globals__%7D%7D</code></p>
+<p><figure class="figure"><img src="4.png" alt=""></figure></p>
+<p>这里找到了current_app。也就是当前的app对象的信息。再找到app的配置信息payload:</p>
+<p><code>http://e91f3d14-bdaa-4601-86c4-ebe6cc5d478e.node3.buuoj.cn/shrine/%7B%7Burl_for.__globals__[&#39;current_app&#39;].config%7D%7D</code></p>
+<p><figure class="figure"><img src="5.png" alt=""></figure></p>
+<p>找到了flag。当然用<code>http://e91f3d14-bdaa-4601-86c4-ebe6cc5d478e.node3.buuoj.cn/shrine/%7B%7Burl_for.__globals__[&#39;current_app&#39;].config[&#39;FLAG&#39;]%7D%7D</code>也是一样的。</p>
+
+	
+
+	
+
+</article>
+
+
+
+
+	<article>
+	
+		<h1><a href="/2020/05/13/flask-模板注入/">flask 模板注入</a></h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-13</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<h5 id="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"><a href="#之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结" class="headerlink" title="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"></a>之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结</h5><p>这位师傅总结得很好，我就再自己实操一遍，加深理解。<br><a href="https://xz.aliyun.com/t/3679" target="_blank" rel="noopener">参考链接</a></p>
+<p>模板注入简单来说就是由于代码不规范或信任了用户输入而导致了服务端模板注入&#40;和sql注入很相似&#41;</p>
+<p>flask中模板注入最主要的还是使用了render_template_string&#40;template&#41;渲染字符串。如果在模板中有”%&#40;request.url&#41;”这样的语句。&#40;template&#41;就会将&#123;&#123;&#125;&#125;中的语句一起解析，造成注入。而使用render_template&#40;&#41;就可以避免这种情况。原因在于使用render_template&#40;&#41;时，模板已经提前渲染好了，用户恶意传入的&#123;&#123;&#125;&#125;的语句并不会再次解析。</p>
+<p><strong>接下来是利用的方法</strong></p>
+<p>在python中，object类是Python中所有类的基类，如果定义一个类时没有指定继承哪个类，则默认继承object类。例如我们打印一下””的基类</p>
+<p>1.<code>__class__</code>  可以得到一个对象的类型</p>
+<p><code>print(&quot;&quot;.__class__)</code><br>得到结果：<code>&lt;class &#39;str&#39;&gt;</code></p>
+<p>2.<code>__bases__</code>得到一个对象的基类</p>
+<p><code>print(&quot;&quot;.__class__.__bases__)</code> 得到结果：<code>&lt;class &#39;object&#39;&gt;</code></p>
+<p>3.<code>__mro__</code> 列出解析方法调用的顺序</p>
+<p><code>print(&quot;&quot;.__class__.__mro__)</code><br>得到结果：<code>&lt;class &#39;str&#39;&gt;, &lt;class &#39;object&#39;&gt;</code> 即先解析str类，再解析object类。</p>
+<p>4.<code>__subclasses__()</code> 返回一个类的子类</p>
+<p><code>print(&quot;&quot;.__class__.__bases__[0].__subclasses__())</code></p>
+<p>得到结果<code>[&lt;class &#39;type&#39;&gt;, &lt;class &#39;weakref&#39;&gt;, &lt;class &#39;weakcallableproxy&#39;&gt;, &lt;class &#39;weakproxy&#39;&gt;, &lt;class &#39;int&#39;&gt;, &lt;class &#39;bytearray&#39;&gt;, &lt;class &#39;bytes&#39;&gt;, &lt;class &#39;list&#39;&gt;, &lt;class &#39;NoneType&#39;&gt;.....(还有很多就不全部列举了)</code></p>
+<p>在这些子类中，我们可以找到一个有趣的模块–os。而os模块中有调用系统shell的方法，我们可以据此执行命令。</p>
+<p>可以利用如下代码找到与os有关的子类的位置</p>
+<p><code>a = &#39;&#39;.__class__.__bases__[0].__subclasses__()
+for index, value in enumerate(a):
+    value = str(value)  # 返回的为type类型。需要转化为数值型才能迭代
+    if &#39;os.&#39; in value:
+        print(index)
+        print(value)</code></p>
+<p>得到结果<br><code>133&lt;class &#39;os._wrap_close&#39;&gt;134&lt;class &#39;os._AddedDllDirectory&#39;&gt;</code></p>
+<p>在os._wrap_close中，有我们喜闻乐见的函数–popen&#40;&#41;</p>
+<p>最后的poc:</p>
+<p><code>print(&#39;&#39;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;cmd&#39;).read())</code></p>
+<p>其中<code>__init</code>用于初始化类。<code>__globals__</code>全局来查找所有的方法及变量及参数。</p>
+
+	
+
+	
+
+</article>
+
+
+
+
+
+
+	<span class="different-posts">📕 end of posts 📕</span>
+
+
+	</main>
+
+	<footer class="footer">
+	<div class="footer-content">
+		
+	      <div class="footer__element">
+	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
+</div>
+
+	    
+	      <div class="footer__element">
+	<h5>Check out</h5>
+	<ul class="footer-links">
+		<li class="footer-links__link"><a href="/archives">Archive</a></li>
+		
+		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
+	    
+		<li class="footer-links__link"><a href="/about">about page</a></li>
+		<li class="footer-links__link"><a href="/tags">Tags</a></li>
+		<li class="footer-links__link"><a href="/categories">Categories</a></li>
+	</ul>
+</div>
+
+	    
+
+		<div class="footer-credit">
+			<span>© 2020 John Doe | Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo" target="_blank" rel="noopener">MeiliDu</a></span>
+		</div>
+
+	</div>
+
+
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
 </body>
+
 </html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#33474d">
+	<title>JWT | Hexo</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	
+      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+	<header class="header">
+		<nav class="header__nav">
+			
+				<a href="/archives" class="header__link">Archive</a>
+			
+		</nav>
+		<h1 class="header__title"><a href="/">Hexo</a></h1>
+		<h2 class="header__subtitle"></h2>
+	</header>
+
+	<main>
+		<article>
+	
+		<h1>JWT</h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-05-15</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<h3 id="JWT是一种跨域身份验证的解决方案。"><a href="#JWT是一种跨域身份验证的解决方案。" class="headerlink" title="JWT是一种跨域身份验证的解决方案。"></a>JWT是一种跨域身份验证的解决方案。</h3><ol>
+<li><p>要说JWT，必须先说一下session。session分为会话session和持久session。</p>
+<ul>
+<li><p>会话session:只作用于本次会话，此时的session存储在浏览器内存中。当用户关闭浏览器后，此次session会过期。如果用户打开浏览器想继续这次会话的时候,就会因为发送的请求中没有这个sessionid而使服务器无法辨别该把那个session信息给他,注意(这个时候服务器端的sessionid和sessionid所指向的session都还存在,只是没有正确的sessionid和它匹配而占用服务器内存,只有session过期或服务器重启才释放内存</p>
+</li>
+<li><p>持久session:把cookie固化在用户的计算机上,可以在多次绘画中使用使用。现在的cookie不单单能存放sessionid,还能放用户信息,样式表信息等。持久化session也是实现跨域身份验证的一种解决方案。</p>
+</li>
+</ul>
+</li>
+<li><p>现在可以说到JWT了。当用传统的持久session来解决跨域身份验证时，有一个缺点在于此时session都是依赖于持久层的数据库或者问题系统，会有单点风险，如果持久层失败，整个认证体系都会挂掉。而JWT通过客户端保存数据，服务器根本不保存会话数据，每个请求都被发送回服务器。</p>
+</li>
+<li><p>JWT的原则是在服务器身份验证之后，将生成一个JSON对象并将其发送回用户，之后，当用户与服务器通信时，客户在请求中发回JSON对象。服务器仅依赖于这个JSON对象来标识用户。为了防止用户篡改数据，服务器将在生成对象时添加签名。</p>
+</li>
+<li><p>JWT分为三个部分。JWT头、有效载荷和签名。JWT将三个部分通过“.”连接在一起形成一个很长的字符串</p>
+<ul>
+<li><p>JWT头部分是一个描述JWT元数据的JSON对象，如：</p>
+<p><code>{</code></p>
+<p><code>&quot;alg&quot;: &quot;HS256&quot;,</code></p>
+<p> <code>&quot;typ&quot;: &quot;JWT&quot;  }</code></p>
+</li>
+<li><p>有效载荷，有效载荷部分，是JWT的主体内容部分，也是一个JSON对象，包含需要传递的数据。 JWT指定七个默认字段供选择。</p>
+<p>iss：发行人</p>
+<p>exp：到期时间</p>
+<p>sub：主题</p>
+<p>aud：用户</p>
+<p>nbf：在此之前不可用</p>
+<p>iat：发布时间</p>
+<p>jti：JWT ID用于标识该JWT</p>
+<p>除以上默认字段外，我们还可以自定义私有字段，如下例：</p>
+<p><code>{</code></p>
+<p>  <code>&quot;sub&quot;: &quot;1234567890&quot;,</code></p>
+<p> <code>&quot;name&quot;: &quot;chongchong&quot;,</code></p>
+<p>  <code>&quot;admin&quot;: true</code></p>
+<p> <code>}</code></p>
+</li>
+</ul>
+<ul>
+<li>签名哈希部分是对上面两部分数据签名，通过指定的算法生成哈希，以确保数据不会被篡改。</li>
+</ul>
+</li>
+<li><p>JWT的使用</p>
+<p> 客户端接收服务器返回的JWT，将其存储在Cookie或localStorage中。<br>此后，客户端将在与服务器交互中都会带JWT。如果将它存储在Cookie中，就可以自动发送，但是不会跨域，因此一般是将它放入HTTP请求的Header Authorization字段中。</p>
+<p> Authorization: Bearer</p>
+<p> 当跨域时，也可以将JWT被放置于POST请求的数据主体中。</p>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li><p>JWT默认不加密，但可以加密。生成原始令牌后，可以使用改令牌再次对其进行加密。</p>
+</li>
+<li><p>当JWT未加密方法时，一些私密数据无法通过JWT传输。</p>
+</li>
+<li><p>JWT不仅可用于认证，还可用于信息交换。善用JWT有助于减少服务器请求数据库的次数。</p>
+</li>
+<li><p>JWT的最大缺点是服务器不保存会话状态，所以在使用期间不可能取消令牌或更改令牌的权限。也就是说，一旦JWT签发，在有效期内将会一直有效。</p>
+</li>
+<li><p>JWT本身包含认证信息，因此一旦信息泄露，任何人都可以获得令牌的所有权限。为了减少盗用，JWT的有效期不宜设置太长。对于某些重要操作，用户在使用时应该每次都进行进行身份验证。</p>
+</li>
+<li><p>为了减少盗用和窃取，JWT不建议使用HTTP协议来传输代码，而是使用加密的HTTPS协议进行传输。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>PS：JWT是可破解和伪造的。在这里附上WJT破解工具和生成链接</p>
+<p><a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">破解工具</a> </p>
+<p><a href="https://jwt.io/" target="_blank" rel="noopener">生成网站</a></p>
+<p><a href="https://www.cnblogs.com/zhangxp1129/archive/2012/08/20/2647767.html" target="_blank" rel="noopener">参考链接</a></p>
+<p><a href="https://baijiahao.baidu.com/s?id=1608021814182894637&wfr=spider&for=pc" target="_blank" rel="noopener">参考链接</a></p>
+
+	
+
+	
+		<span class="different-posts"><a href="/2020/05/15/JT/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
+
+	
+
+</article>
+
+	</main>
+
+	<footer class="footer">
+	<div class="footer-content">
+		
+	      <div class="footer__element">
+	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
+</div>
+
+	    
+	      <div class="footer__element">
+	<h5>Check out</h5>
+	<ul class="footer-links">
+		<li class="footer-links__link"><a href="/archives">Archive</a></li>
+		
+		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
+	    
+		<li class="footer-links__link"><a href="/about">about page</a></li>
+		<li class="footer-links__link"><a href="/tags">Tags</a></li>
+		<li class="footer-links__link"><a href="/categories">Categories</a></li>
+	</ul>
+</div>
+
+	    
+
+		<div class="footer-credit">
+			<span>© 2020 John Doe | Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo" target="_blank" rel="noopener">MeiliDu</a></span>
+		</div>
+
+	</div>
+
+
+</footer>
+
+
+
+</body>
+
+</html>
