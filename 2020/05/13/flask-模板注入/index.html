@@ -1,44 +1,118 @@
 <!DOCTYPE html>
 <html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Y0un9">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="flask 模板注入"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Hexo"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="theme-color" content="#33474d">
-	<title>flask 模板注入 | Hexo</title>
-	<link rel="stylesheet" href="/css/style.css" />
-	
-      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-    
+  <!-- Site Title -->
+  <title>Hexo</title>
+
+  <!-- Bootstrap CSS -->
+  
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  
+  
+<link rel="stylesheet" href="/css/style.light.css">
+
+
+  <!-- Google Analytics -->
+  
+
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body>
+  <body>
+    <!-- Page Header -->
 
-	<header class="header">
-		<nav class="header__nav">
-			
-				<a href="/archives" class="header__link">Archive</a>
-			
-		</nav>
-		<h1 class="header__title"><a href="/">Hexo</a></h1>
-		<h2 class="header__subtitle"></h2>
-	</header>
 
-	<main>
-		<article>
-	
-		<h1>flask 模板注入</h1>
-	
-	<div class="article__infos">
-		<span class="article__date">2020-05-13</span><br />
-		
-		
-	</div>
+<header class="site-header header-background" style="background-image: url(/img/header.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">flask 模板注入</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/Y0un9" target="_blank" rel="noopener">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:915303764@qq.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-	
-
-	
-		<h5 id="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"><a href="#之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结" class="headerlink" title="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"></a>之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结</h5><p>这位师傅总结得很好，我就再自己实操一遍，加深理解。<br><a href="https://xz.aliyun.com/t/3679" target="_blank" rel="noopener">参考链接</a></p>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By Y0un9</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2020-05-13</span>
+            <span class="time">01:11:13</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h5 id="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"><a href="#之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结" class="headerlink" title="之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结"></a>之前对于flask模板注入只看了下大概的原理。在buu又遇到了这个题。在这里做一个总结</h5><p>这位师傅总结得很好，我就再自己实操一遍，加深理解。<br><a href="https://xz.aliyun.com/t/3679" target="_blank" rel="noopener">参考链接</a></p>
 <p>模板注入简单来说就是由于代码不规范或信任了用户输入而导致了服务端模板注入&#40;和sql注入很相似&#41;</p>
 <p>flask中模板注入最主要的还是使用了render_template_string&#40;template&#41;渲染字符串。如果在模板中有”%&#40;request.url&#41;”这样的语句。&#40;template&#41;就会将&#123;&#123;&#125;&#125;中的语句一起解析，造成注入。而使用render_template&#40;&#41;就可以避免这种情况。原因在于使用render_template&#40;&#41;时，模板已经提前渲染好了，用户恶意传入的&#123;&#123;&#125;&#125;的语句并不会再次解析。</p>
 <p><strong>接下来是利用的方法</strong></p>
@@ -66,51 +140,44 @@ for index, value in enumerate(a):
 <p><code>print(&#39;&#39;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;cmd&#39;).read())</code></p>
 <p>其中<code>__init</code>用于初始化类。<code>__globals__</code>全局来查找所有的方法及变量及参数。</p>
 
-	
-
-	
-		<span class="different-posts"><a href="/2020/05/13/flask-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
-
-	
-
+        </div>
+      </div>
+    </div>
+  </div>
 </article>
 
-	</main>
-
-	<footer class="footer">
-	<div class="footer-content">
-		
-	      <div class="footer__element">
-	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
-</div>
-
-	    
-	      <div class="footer__element">
-	<h5>Check out</h5>
-	<ul class="footer-links">
-		<li class="footer-links__link"><a href="/archives">Archive</a></li>
-		
-		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
-	    
-		<li class="footer-links__link"><a href="/about">about page</a></li>
-		<li class="footer-links__link"><a href="/tags">Tags</a></li>
-		<li class="footer-links__link"><a href="/categories">Categories</a></li>
-	</ul>
-</div>
-
-	    
-
-		<div class="footer-credit">
-			<span>© 2020 John Doe | Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo" target="_blank" rel="noopener">MeiliDu</a></span>
-		</div>
-
-	</div>
 
 
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
 </footer>
 
 
+    <!-- After Footer Scripts -->
 
-</body>
+<script src="/js/highlight.pack.js"></script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
 </html>
+
