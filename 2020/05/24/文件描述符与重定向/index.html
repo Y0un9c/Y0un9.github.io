@@ -104,7 +104,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2020-05-24</span>
-            <span class="time">16:45:21</span>
+            <span class="time">19:05:18</span>
           </span>
           
         </div>
@@ -143,7 +143,9 @@
 <p><img src="/2020/05/24/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91/3.png" alt></p>
 <p>这是首先将标准输出(echo的内容)指向newfile，使用echo输出内容时就会输出到newfile中，不会显示在屏幕上。</p>
 <p><img src="/2020/05/24/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91/4.png" alt></p>
-<h6 id="2-3-标准输出与标准错误输出重定向"><a href="#2-3-标准输出与标准错误输出重定向" class="headerlink" title="2.3 标准输出与标准错误输出重定向"></a>2.3 标准输出与标准错误输出重定向</h6><p>格式：    <code>&amp;&gt; file</code>  等价于 <code>0&gt; file 2&gt;&amp;1</code></p>
+<h6 id="2-3-标准输出与标准错误输出重定向"><a href="#2-3-标准输出与标准错误输出重定向" class="headerlink" title="2.3 标准输出与标准错误输出重定向"></a>2.3 标准输出与标准错误输出重定向</h6><p>格式：    </p>
+<pre><code>&amp;&gt; file 或
+&gt;&amp; file</code></pre><p>两者都等价于 <code>&gt; file 2&gt;&amp;1</code></p>
 <p>解释一下第二个。这里先将标准输出指向file，再将标准错误输出复制到标准输出。即标准输入和标准错误输出都指向了file</p>
 <p><img src="/2020/05/24/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91/5.png" alt></p>
 <h6 id="2-4-文件描述符的复制。"><a href="#2-4-文件描述符的复制。" class="headerlink" title="2.4 文件描述符的复制。"></a>2.4 文件描述符的复制。</h6><p>格式：<code>[n]&lt;&amp;[m] / [n]&gt;&amp;[m]</code></p>
