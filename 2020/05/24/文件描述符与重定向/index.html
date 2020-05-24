@@ -104,7 +104,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2020-05-24</span>
-            <span class="time">16:38:25</span>
+            <span class="time">16:45:21</span>
           </span>
           
         </div>
@@ -146,7 +146,7 @@
 <h6 id="2-3-标准输出与标准错误输出重定向"><a href="#2-3-标准输出与标准错误输出重定向" class="headerlink" title="2.3 标准输出与标准错误输出重定向"></a>2.3 标准输出与标准错误输出重定向</h6><p>格式：    <code>&amp;&gt; file</code>  等价于 <code>0&gt; file 2&gt;&amp;1</code></p>
 <p>解释一下第二个。这里先将标准输出指向file，再将标准错误输出复制到标准输出。即标准输入和标准错误输出都指向了file</p>
 <p><img src="/2020/05/24/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91/5.png" alt></p>
-<h6 id="2-4-文件描述符的复制。"><a href="#2-4-文件描述符的复制。" class="headerlink" title="2.4 文件描述符的复制。"></a>2.4 文件描述符的复制。</h6><p>格式：<code>格式： [n]&lt;&amp;[m] / [n]&gt;&amp;[m]</code></p>
+<h6 id="2-4-文件描述符的复制。"><a href="#2-4-文件描述符的复制。" class="headerlink" title="2.4 文件描述符的复制。"></a>2.4 文件描述符的复制。</h6><p>格式：<code>[n]&lt;&amp;[m] / [n]&gt;&amp;[m]</code></p>
 <p>(这里所有字符间都不要空格)</p>
 <p>这里两个都是将文件描述符 n 复制到 m ，两者的区别是，前者是以只读的形式打开，后者是以写的形式打开</p>
 <p><strong><em>因此 0&lt;&amp;1 和 0&gt;&amp;1 是完全等价的（读/写方式打开对其没有任何影响）</em></strong></p>
