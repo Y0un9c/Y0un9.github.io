@@ -78,6 +78,110 @@
     
     
     
+    <article id="post-CISCN2018-loveMath" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/26/CISCN2018-loveMath/"
+    >CISCN2018-loveMath</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/26/CISCN2018-loveMath/" class="article-date">
+  <time datetime="2020-05-26T07:41:30.000Z" itemprop="datePublished">2020-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>打开页面是一个php审计的题。先看一下源码</p>
+<p><img src="/images/pasted-0.png" alt="upload successful"></p>
+<p>要求传入一个参数c，c中不能含有空格,<code>[</code>,<code>]</code>,单引号，双引号以及反引号等、c的长度不能大于80，这里的过滤应该是为了防止我们传入<code>$_GET[]</code>之类的。</p>
+<p>在看下面的白名单，这里用了正则过滤，要求过滤出来的字母必须为白名单内的函数。可以看到白名单内都是一些数学函数，备注也给了提示。这就有点难搞了。看了一下注释给的链接，里面有进制转换的相关函数，那么突破点应该就是在这里了。将我们想要执行的语句先进行一个进制转换，再在payload中转换回来，但是存在一个问题，通过$content返回的都是字符串，eval()是无法执行字符串的。</p>
+<p>比如有这么一段代码。<br><img src="/images/pasted-1.png" alt="upload successful"></p>
+<p>可以看到提示说eval()处多了引号。好了，卡在这里没思路了。还是去看了wp<br><img src="/images/pasted-2.png" alt="upload successful"></p>
+<p><strong><em>这里是考了两个我不知道的点</em></strong></p>
+<ol>
+<li>php动态函数。只要在一个字符串变量后面加上括号，这个变量的字符串值就会变成函数名。附一张言简意赅的图。<br><img src="/images/pasted-3.png" alt="upload successful"></li>
+<li>可以用<code>{}</code>来代替<code>[]</code></li>
+</ol>
+<p>由于我们要把这句话还原为字符串，所以必须要用到hex2bin()这个函数。hex2bin可以用10进制转36进制生成。<br><img src="/images/pasted-11.png" alt="upload successful"><br>构造第一步的payload生成hex2bin()函数，这里我们使用</p>
+<p><img src="/images/pasted-6.png" alt="upload successful"></p>
+<p><code>base_convert(37907361743,10,36)()</code> =&gt;<code>hex2bin()</code></p>
+<p>由于eval()无法执行字符串，我们只能使用动态函数，即<code>(system)(cat /flag)</code>。其中<code>system</code>和<code>cat /flag</code>通过变量来表示。可以再传入两个参数a,b。<code>a=system&amp;b=cat /flag</code>的形式。由于限制了长度，这里我们需要尽量选取长度最小的数学函数名来作为变量名。往源码后面看，有一个pi函数。那么可以选<code>pi=system&amp;abs=cat /flag</code>。那么我们接下来的形式就为<code>(pi)(abs)</code>。</p>
+<p>这里的pi和abs是通过get传参传过去的，那么要获取这两个变量也必须通过<code>$_GET[]</code>的形式。现在问题就在于如果使用禁止转换来得到<code>_GET</code>。由于<code>$</code>没被过滤。<code>[]</code>可以用<code>{}</code>来代替，所以只考虑<code>_GET</code>。</p>
+<p>刚刚已经得到了hex2bin()函数。如果想到<code>_GET</code>转换为hex字符串，其中含有字母就无法绕过黑名单。（可以尝试一下abs(a)是会被检测出来的）<br>这里我们就需要把hex字符串转为10进制，再通过<code>dechex()</code>转换回hex</p>
+<p><img src="/images/pasted-7.png" alt="upload successful"></p>
+<p><img src="/images/pasted-8.png" alt="upload successful"></p>
+<p><img src="/images/pasted-9.png" alt="upload successful"></p>
+<p>第二步的payload </p>
+<p><code>dechex(1598506324)</code></p>
+<p>将其和第一步的payload结果起来就是</p>
+<p><code>base_convert(37907361743,10,36)(dechex(1598506324))</code> =&gt;<code>_GET</code></p>
+<p>(做到这步我才知道为啥要限制c的长度了。)</p>
+<p>现在我们想要使用<code>_GET</code>的话，还需要把它赋值给一个变量。还是选取长度最短的pi</p>
+<p>payload:</p>
+<p><code>$pi=base_convert(37907361743,10,36)(dechex(1598506324))</code></p>
+<p>接下来就很好表示<code>(system)(cat /flag)</code>了。payload：</p>
+<p><code>($$pi){pi}(($$pi){abs})&amp;pi=system&amp;ads=cat /flag</code> =&gt; <code>($_GET[pi])($_GET[abs])</code>=&gt;<code>(system)(cat /flag)</code></p>
+<p>PS:</p>
+<ol>
+<li>(system)和system是一样的。</li>
+<li>system(‘ls’) === system(ls)</li>
+</ol>
+<p>再把两部分结合起来，得到最终的payload:</p>
+<p><code>?c=$pi=base_convert(37907361743,10,36)(dechex(1598506324));($$pi){pi}(($$pi){abs})&amp;pi=system&amp;abs=cat /flag</code></p>
+<p>检查一下长度，79。很是惊险了。<br><img src="/images/pasted-13.png" alt="upload successful"></p>
+<p><img src="/images/pasted-12.png" alt="upload successful"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-shell反弹" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
