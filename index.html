@@ -129,7 +129,7 @@
 <p><img src="/images/pasted-6.png" alt="upload successful"></p>
 <p><code>base_convert(37907361743,10,36)()</code> =&gt;<code>hex2bin()</code></p>
 <p>由于eval()无法执行字符串，我们只能使用动态函数，即<code>(system)(cat /flag)</code>。其中<code>system</code>和<code>cat /flag</code>通过变量来表示。可以再传入两个参数a,b。<code>a=system&amp;b=cat /flag</code>的形式。由于限制了长度，这里我们需要尽量选取长度最小的数学函数名来作为变量名。往源码后面看，有一个pi函数。那么可以选<code>pi=system&amp;abs=cat /flag</code>。那么我们接下来的形式就为<code>(pi)(abs)</code>。</p>
-<p>这里的pi和abs是通过get传参传过去的，那么要获取这两个变量也必须通过<code>$_GET[]</code>的形式。现在问题就在于如果使用禁止转换来得到<code>_GET</code>。由于<code>$</code>没被过滤。<code>[]</code>可以用<code>{}</code>来代替，所以只考虑<code>_GET</code>。</p>
+<p>这里的pi和abs是通过get传参传过去的，那么要获取这两个变量也必须通过<code>$_GET[]</code>的形式。现在问题就在于如何使用进制转换来得到<code>_GET</code>。由于<code>$</code>没被过滤。<code>[]</code>可以用<code>{}</code>来代替，所以只考虑<code>_GET</code>。</p>
 <p>刚刚已经得到了hex2bin()函数。如果想到<code>_GET</code>转换为hex字符串，其中含有字母就无法绕过黑名单。（可以尝试一下abs(a)是会被检测出来的）<br>这里我们就需要把hex字符串转为10进制，再通过<code>dechex()</code>转换回hex</p>
 <p><img src="/images/pasted-7.png" alt="upload successful"></p>
 <p><img src="/images/pasted-8.png" alt="upload successful"></p>
