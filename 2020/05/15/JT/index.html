@@ -41,6 +41,8 @@
 
 <body>
   
+  <canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
+  
   <div id="app">
     <main class="content on">
       <section class="outer">
@@ -344,7 +346,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2015-2020
+        2020
         <i class="ri-heart-fill heart_icon"></i> Y0un9
       </li>
     </ul>
@@ -426,10 +428,6 @@
       </a>
       
       
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
-      
     </li>
   </ul>
 </nav>
@@ -478,12 +476,12 @@
 <script>
   try {
     var typed = new Typed("#subtitle", {
-      strings: ['面朝大海，春暖花开', '', ''],
+      strings: ['', '', ''],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 100,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -637,6 +635,10 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom -->
+
+
+<script src="/js/clickBoom.js"></script>
+
 
 <!-- CodeCopy -->
 
