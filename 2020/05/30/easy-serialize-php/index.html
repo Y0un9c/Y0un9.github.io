@@ -110,7 +110,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$function &#x3D; @$_GET[&#39;f&#39;];</span><br><span class="line"></span><br><span class="line">function filter($img)&#123;</span><br><span class="line">    $filter_arr &#x3D; array(&#39;php&#39;,&#39;flag&#39;,&#39;php5&#39;,&#39;php4&#39;,&#39;fl1g&#39;);</span><br><span class="line">    $filter &#x3D; &#39;&#x2F;&#39;.implode(&#39;|&#39;,$filter_arr).&#39;&#x2F;i&#39;;</span><br><span class="line">    return preg_replace($filter,&#39;&#39;,$img);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if($_SESSION)&#123;</span><br><span class="line">    unset($_SESSION);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$_SESSION[&quot;user&quot;] &#x3D; &#39;guest&#39;;</span><br><span class="line">$_SESSION[&#39;function&#39;] &#x3D; $function;</span><br><span class="line"></span><br><span class="line">extract($_POST);</span><br><span class="line"></span><br><span class="line">if(!$function)&#123;</span><br><span class="line">    echo &#39;&lt;a href&#x3D;&quot;index.php?f&#x3D;highlight_file&quot;&gt;source_code&lt;&#x2F;a&gt;&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(!$_GET[&#39;img_path&#39;])&#123;</span><br><span class="line">    $_SESSION[&#39;img&#39;] &#x3D; base64_encode(&#39;guest_img.png&#39;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    $_SESSION[&#39;img&#39;] &#x3D; sha1(base64_encode($_GET[&#39;img_path&#39;]));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$serialize_info &#x3D; filter(serialize($_SESSION));</span><br><span class="line"></span><br><span class="line">if($function &#x3D;&#x3D; &#39;highlight_file&#39;)&#123;</span><br><span class="line">    highlight_file(&#39;index.php&#39;);</span><br><span class="line">&#125;else if($function &#x3D;&#x3D; &#39;phpinfo&#39;)&#123;</span><br><span class="line">    eval(&#39;phpinfo();&#39;); &#x2F;&#x2F;maybe you can find something in here!</span><br><span class="line">&#125;else if($function &#x3D;&#x3D; &#39;show_image&#39;)&#123;</span><br><span class="line">    $userinfo &#x3D; unserialize($serialize_info);</span><br><span class="line">    echo file_get_contents(base64_decode($userinfo[&#39;img&#39;]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>解读一下源码。</p>
 <ul>
-<li><p>这里可以读取phpinfo。并且提示了里面可能会有有用信息，看一下。flag应该就是在这个文件了。<br><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-27.png" alt="upload successful"></p>
+<li><p>这里可以读取phpinfo。并且提示了里面可能会有有用信息，看一下。flag应该就是在这个文件了。<br><img src="/images/pasted-27.png" alt="upload successful"></p>
 </li>
 <li><p>这里有三个SESSION。其中function和img_path可控。但是img_path只能获得指定图片的base64编码或是我们传入的参数的base64+sha1。经过sha1后实际上这个参数已经不可控了</p>
 </li>
@@ -119,8 +119,8 @@
 <ul>
 <li><code>extract($_POST);</code> 读取POST数据，在数组中把变量导入到当前的符号表中。他有一个非常实用的功能，在表单传值中，如果html代码为</li>
 </ul>
-<p><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-25.png" alt="upload successful"></p>
-<p> 那么<br><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-26.png" alt="upload successful"></p>
+<p><img src="/images/pasted-25.png" alt="upload successful"></p>
+<p> 那么<br><img src="/images/pasted-26.png" alt="upload successful"></p>
 <p>但是该函数也存在变量覆盖的问题。当传入的参数名已存在时，就会覆盖掉当前的变量</p>
 <ul>
 <li>这里对所有的SESSION序列化后过滤，不能包含flag,php等关键词。最后对session信息做一个反序列化。并把img的值经base64解码后进行读取。那么利用点就在这里了。</li>
@@ -130,7 +130,7 @@
 <li>由于使用了extract函数，那么我们可以利用变量覆盖传入自定义的session覆盖掉当前的session值。</li>
 <li>我们只能通过session[img]读取flag。而该参数又不可控，只能利用反序列化字符逃逸</li>
 </ol>
-<p>在本地看一下序列化的结果。<br><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-28.png" alt="upload successful"><br>这里我们需要截取的是img这一块的数据。<br><code>;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code>（已替换为d0g3_f1ag.php的base64编码）</p>
+<p>在本地看一下序列化的结果。<br><img src="/images/pasted-28.png" alt="upload successful"><br>这里我们需要截取的是img这一块的数据。<br><code>;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code>（已替换为d0g3_f1ag.php的base64编码）</p>
 <p>我们最后序列化后的结果中应该是有两个键值对，一个是我们想要逃逸的img，另一个是传入的参数。</p>
 <p>形式为：<code>a:2:{s:n:&quot;&quot;;s:xx:&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code> 其中xx为两位数，代表当前字符串的长度。n为构造的session的长度。为了让img逃逸出去。需要想办法把s:xx这一串吃掉。”;s:40:一共是七个字符。所以n应该为7。那么session就应该为flagphp。刚好过滤掉七个字符。</p>
 <p>此时为<code>a:2:{s:7:&quot;&quot;;s:xx:&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code></p>
@@ -138,8 +138,8 @@
 <p><code>a:2:{s:7:&quot;&quot;;s:xx:&quot;;s:1:&quot;a&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code></p>
 <p>payload就出来了 <code>_SESSION[flagphp]=;s:1:&quot;1&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;}</code></p>
 <p>发包过去</p>
-<p><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-29.png" alt="upload successful">。这时候再改一下base64的编码即可。长度也是20位<br>得到flag</p>
-<p><img src="/2020/05/30/easy-serialize-php/images%5Cpasted-30.png" alt="upload successful"></p>
+<p><img src="/images/pasted-29.png" alt="upload successful">。这时候再改一下base64的编码即可。长度也是20位<br>得到flag</p>
+<p><img src="/images/pasted-30.png" alt="upload successful"></p>
 <p><a href="https://www.cnblogs.com/wangtanzhi/p/12261610.html" target="_blank" rel="noopener">参考链接</a></p>
 <p><a href="https://www.jianshu.com/p/8e8117f9fd0e" target="_blank" rel="noopener">参考链接</a></p>
 
