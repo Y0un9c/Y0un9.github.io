@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-     Y0un9
+    TCP三次握手和四次握手 |  Y0un9
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -45,29 +45,17 @@
   
   <div id="app">
     <main class="content on">
-      
-
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
-
-<div id="main">
-  <section class="outer">
-  <article class="articles">
-    
-    
-    
-    
-    <article id="post-WesternCTF2018-shrine" class="article article-type-post" itemscope
+      <section class="outer">
+  <article id="post-TCP协议" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
     <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/15/WesternCTF2018-shrine/"
-    >[WesternCTF2018]shrine</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  TCP三次握手和四次握手
+</h1>
  
 
     </header>
@@ -75,116 +63,288 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/15/WesternCTF2018-shrine/" class="article-date">
-  <time datetime="2020-05-15T02:33:00.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/06/03/TCP%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-06-03T12:55:40.000Z" itemprop="datePublished">2020-06-03</time>
 </a>
       
       
       
-      
-    </div>
-    
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">904</span>
+        </span>
+    </span>
 
-    
-
-    
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/" rel="tag">CTF</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-</article>
-    
-    <article id="post-flask-模板注入" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/13/flask-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/"
-    >flask 模板注入</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/13/flask-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" class="article-date">
-  <time datetime="2020-05-13T12:09:53.000Z" itemprop="datePublished">2020-05-13</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-</article>
-    
-  </article>
-  
-
-  
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-  
-</section>
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
 </div>
 
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>TCP（传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。连接到不同但互连的计算机通信网络的主计算机中的成对进程之间依靠TCP提供可靠的通信服务。</p>
+<h5 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h5><p>这里先说一下tcp三次握手的过程</p>
+<ul>
+<li>第一次握手：客户端发了个连接请求消息到服务端，服务端收到信息后知道自己与客户端是可以连接成功的。（客户端向服务器端发出请求）</li>
+</ul>
+<p>建立连接时，客户端发送syn包（syn=x）到服务器，并进入SYN_SENT状态，等待服务器确认；</p>
+<ul>
+<li>第二次握手：由于客户端并不知道服务端是否已经接收到了它的请求，所以服务端接收到消息后的应答，需要对客户端进行反馈。此时客户端确信可以和服务端进行连接。(服务端向客户端反馈请求)</li>
+</ul>
+<p>服务器收到syn包，必须确认客户的SYN（ack=x+1），同时自己也发送一个SYN包（syn=y），即SYN+ACK包，此时服务器进入SYN_RECV状态；</p>
+<ul>
+<li>第三次握手：为防止服务器端收到的报文已经失效，（客户端发出去的第一个连接请求由于某些原因在网络节点中滞留了导致延迟）此时需要客户端再向服务端反馈一下。(防止服务器端持续的等待造成资源浪费)</li>
+</ul>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</p>
+<p>提一下tcp报文中的一些重要字段</p>
+<p>（1）序号（sequence number）：Seq序号，占32位，用来标识从TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记。</p>
+<p>（2）确认号（acknowledgement number）：ack序号，占32位，只有ACK标志位为1时，确认序号字段才有效，ack=seq+1。（个人理解ack=seq+1是为了确认上一条数据流成功接收）</p>
+<p>（3）标志位（Flags）：共6个，即URG、ACK、PSH、RST、SYN、FIN等。具体含义如下：</p>
+<p>URG：紧急指针（urgent pointer）有效。</p>
+<p>ACK：确认序号有效。</p>
+<p>PSH：接收方应该尽快将这个报文交给应用层。</p>
+<p>RST：重置连接。</p>
+<p>SYN：发起一个新连接。握手完成后SYN标志位被置0。</p>
+<p>FIN：释放一个连接。FIN=1表示：此报文段的发送方的数据已经发送完毕，并要求释放运输连接<br><img src="/images/pasted-32.png" alt="upload successful"></p>
+<h5 id="四次握手"><a href="#四次握手" class="headerlink" title="四次握手"></a>四次握手</h5><p>tcp四次握手用于释放连接，由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。（比起连接时多次握手的原因）</p>
+<p><img src="/images/pasted-33.png" alt="upload successful"></p>
+<p>（1）当客户端无数据要发送时，客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送。（此时服务器发送给客户端的数据不一定发送完了，未必会马上会关闭SOCKET,）</p>
+<p>（2）服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</p>
+<p>（3）服务器B关闭与客户端A的连接，发送一个FIN给客户端A。（此时服务端已经没有数据要发送了）</p>
+<p>（4）客户端A发回ACK报文确认，并将确认序号设置为收到序号加1，此时完全释放连接。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>Copyright： </strong>
+              Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/03/TCP%E5%8D%8F%E8%AE%AE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/05/30/easy-serialize-php/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">easy_serialize_php</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+  
+  
+  
+<!-- minivaline评论 -->
+<div id="mvcomments-box">
+    <div id="mvcomments">
+    </div>
+</div>
+<script src='https://cdn.jsdelivr.net/npm/minivaline/dist/MiniValine.min.js'></script>
+<script>
+	new MiniValine({
+	  el: '#mvcomments',
+	  appId: '',
+	  appKey: '',
+	  placeholder: 'Write a Comment',
+	  lang: '',
+	  adminEmailMd5: '',
+	  math: true,
+	  md: true
+	});
+    const infoEle = document.querySelector('#mvcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #mvcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #mvcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #mvcomments-box #mvcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+</article>
+</section>
       <footer class="footer">
   <div class="outer">
     <ul>
@@ -333,6 +493,23 @@
 </script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
