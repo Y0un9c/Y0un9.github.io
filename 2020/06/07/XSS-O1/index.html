@@ -74,7 +74,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">610</span>
+            <span class="post-count">642</span>
         </span>
     </span>
 
@@ -108,8 +108,7 @@
       
 
       
-      <p>#####XSS简述</p>
-<p>xss（跨站脚本）是指恶意利用网站提供的接口，没有对用户提交的数据进行转义，或者过滤不足的缺点，进而添加一些代码嵌入到web页面中，使别的用户访问都会执行相应的嵌入代码。</p>
+      <h5 id="XSS简述"><a href="#XSS简述" class="headerlink" title="XSS简述"></a>XSS简述</h5><p>xss（跨站脚本）是指恶意利用网站提供的接口，没有对用户提交的数据进行转义，或者过滤不足的缺点，进而添加一些代码嵌入到web页面中，使别的用户访问都会执行相应的嵌入代码。</p>
 <p>xss可以盗取用户资料，利用用户身份进行某种动作或者对范跟着进行病毒侵害。</p>
 <h5 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h5><ol>
 <li>盗取各类用户账号</li>
@@ -120,7 +119,8 @@
 <li>网站挂马</li>
 <li>控制受害者机器向别的网站发起攻击</li>
 </ol>
-<h5 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h5><p>非持久性xss，漏洞产生的原因在于攻击者注入的数据反映在响应中。如包含一个带XSS攻击向量的链接，每次攻击都需要用户的点击</p>
+<h5 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h5><p>非持久性xss，漏洞产生的原因在于攻击者注入的数据反映在响应中。如包含一个带XSS攻击向量的链接，每次攻击都需要用户的点击。</p>
+<p>PS:反射型的xss实际作用不大，毕竟没人会自己打自己</p>
 <h5 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h5><p>一般是XSS代码放在了网站数据库，页面被用户打开即执行。存储型XSS危害更大。如留言板XSS。用户提交的XSS代码会被保存到数据库中。当目标用户查看留言板时，就会执行xss代码。这里使用kali和DVWA做一个盗取cookie的例子。</p>
 <ul>
 <li><p>打开kali运行apache</p>
@@ -149,6 +149,7 @@
 <p>再到kali上看一下，成功读取到了cookie</p>
 <p><img src="/images/pasted-37.png" alt="upload successful"></p>
 <p>PS:一般浏览器都会关闭掉默认的链接跳转，不过大多数用户为了访问还是会允许这个xss代码执行</p>
+<h5 id="自动化XSS"><a href="#自动化XSS" class="headerlink" title="自动化XSS"></a>自动化XSS</h5><p>用kali上集成的beff即可</p>
 
       
       <!-- reward -->
