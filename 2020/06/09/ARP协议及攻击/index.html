@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    随笔 |  Y0un9
+    ARP协议 |  Y0un9
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -46,7 +46,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-随笔" class="article article-type-post" itemscope
+  <article id="post-ARP协议及攻击" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -54,7 +54,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  随笔
+  ARP协议
 </h1>
  
 
@@ -63,8 +63,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/06/09/%E9%9A%8F%E7%AC%94/" class="article-date">
-  <time datetime="2020-06-09T06:47:08.000Z" itemprop="datePublished">2020-06-09</time>
+      <a href="/2020/06/09/ARP%E5%8D%8F%E8%AE%AE%E5%8F%8A%E6%94%BB%E5%87%BB/" class="article-date">
+  <time datetime="2020-06-09T09:17:09.000Z" itemprop="datePublished">2020-06-09</time>
 </a>
       
       
@@ -74,7 +74,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">207</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -83,7 +83,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -94,6 +94,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -106,9 +108,41 @@
       
 
       
-      <p>一个月来断断续续还是写了一些技术文章了，算是记录下自己成长的过程，还有很多东西在另外的博客上，懒得搬过来了。</p>
-<p>   最近正是梅雨时节，南方的天气诡异，一天晴一天雨，这样诡异的天气也正好赶走酷暑，比起一个月前的37°，这段时间是很舒服的。写完报告躺了一会睡不着，还是从床上爬起来了，想来最近白天夜晚的睡不着也和心情有关。最近不知道在想些什么，总觉得烦躁不安，希望可以早日摆脱负面情绪。</p>
-<p>   临近期末，考试、项目、比赛在这段时间同时压上来了，事情还是挺多，不想那么多了，好好做事吧。</p>
+      <h4 id="ARP概述"><a href="#ARP概述" class="headerlink" title="ARP概述"></a>ARP概述</h4><p>网络设备有数据要发送给另一台网络设备时，必须要知道对方的网络层地址（即IP地址）。IP地址由网络层来提供，但是仅有IP地址是不够的，IP数据报文必须封装成帧才能通过数据链路进行发送。数据帧必须要包含目的MAC地址，因此发送端还必须获取到目的MAC地址。（ARP工作在数据链路层）</p>
+<p>ARP （地址解析协议）是根据IP地址获取MAC地址的一个TCP/IP协议，目前ARP只适用于IPV4，在IPV6中使用NDP(邻居发现协议)。</p>
+<h4 id="ARP工作流程"><a href="#ARP工作流程" class="headerlink" title="ARP工作流程"></a>ARP工作流程</h4><p>假设主机A和B在同一个网段，主机A要向主机B发送信息，具体的地址解析过程如下：</p>
+<p>(1) 主机A首先查看自己的ARP表，确定其中是否包含有主机B对应的ARP表项。如果找到了对应的MAC地址，则主机A直接利用ARP表中的MAC地址，对IP数据包进行帧封装，并将数据包发送给主机B。</p>
+<p>(2) 如果主机A在ARP表中找不到对应的MAC地址，则将缓存该数据报文，然后以广播方式发送一个ARP请求报文。ARP请求报文中的发送端IP地址和发送端MAC地址为主机A的IP地址和MAC地址，目标IP地址和目标MAC地址为主机B的IP地址和全0的MAC地址。由于ARP请求报文以广播方式发送，该网段上的所有主机都可以接收到该请求，但只有被请求的主机（即主机B）会对该请求进行处理。</p>
+<p>(3) 主机B比较自己的IP地址和ARP请求报文中的目标IP地址，当两者相同时进行如下处理：将ARP请求报文中的发送端（即主机A）的IP地址和MAC地址存入自己的ARP表中。之后以单播方式发送ARP响应报文给主机A，其中包含了自己的MAC地址。</p>
+<p>(4) 主机A收到ARP响应报文后，将主机B的MAC地址加入到自己的ARP表中以用于后续报文的转发，同时将IP数据包进行封装后发送出去。</p>
+<h4 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title="ARP欺骗"></a>ARP欺骗</h4><p>由于ARP协议功工作在数据链路层，隐蔽性更高，并且系统不会判断ARP缓存的正确与否，因此很容易出现ARP攻击</p>
+<h6 id="1-ARP单向欺骗"><a href="#1-ARP单向欺骗" class="headerlink" title="1. ARP单向欺骗"></a>1. ARP单向欺骗</h6><p>当主机A和主机B通信时，主机A在自身的ARP缓存中没有找到主机B的MAC地址，主机A将会向整个局域网内发送ARP广播。此时有主机C（攻击者）响应主机A，谎称自己是主机B，并把自己的MAC地址发送给A，A收到后就会缓存起来。从此A发送给B的数据都会被C截断。</p>
+<h6 id="2-ARP双向欺骗"><a href="#2-ARP双向欺骗" class="headerlink" title="2. ARP双向欺骗"></a>2. ARP双向欺骗</h6><p>当主机A和主机B通信时，主机C（攻击者）对A谎称自己是B，对B谎称自己是A。这样双向的数据都被C截获</p>
+<h6 id="3-对内网PC的网关欺骗。"><a href="#3-对内网PC的网关欺骗。" class="headerlink" title="3. 对内网PC的网关欺骗。"></a>3. 对内网PC的网关欺骗。</h6><p>主机C（攻击者）向局域网发送ARP广播，谎称自己是网关。此时主机A和主机B更新ARP表时就会把网关信息更新为C的地址。此时主机A和主机B发送数据都通过了主机C。此时明显现象就是主机A和B都无法上网</p>
+<h6 id="4-对路由器ARP表的欺骗"><a href="#4-对路由器ARP表的欺骗" class="headerlink" title="4. 对路由器ARP表的欺骗"></a>4. 对路由器ARP表的欺骗</h6><p>截获网关数据。主机C通知路由器一系列错误的内网mac地址，并按照一定的频率不断进行，使真实的地址信息无法通过更新保存在路由器中，结果路由器的所有数据只能发送给错误的mac地址，造成正常pc无法收到信息。</p>
+<h4 id="kali上利用arpspoof实现ARP攻击"><a href="#kali上利用arpspoof实现ARP攻击" class="headerlink" title="kali上利用arpspoof实现ARP攻击"></a>kali上利用arpspoof实现ARP攻击</h4><p><strong>初始化阶段</strong></p>
+<ul>
+<li>开启IP转发功能</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</span><br></pre></td></tr></table></figure>
+<ul>
+<li>检查是否开启成功，输出为1时开启成功</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动Arpspoof注入攻击目标系统。攻击的方法是攻击者发送ARP数据包，以欺骗网关。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arpspoof -t 被害人ip 网关ip -i eth0</span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<p>-i（interface）</p>
+<p>网卡eth0</p>
+<p>目标-t（target）</p>
+<p>这里做一个示范,使用dirftnet截取到了受害者主机访问的图片。因为我们欺骗目标机，使目标机的流量经过自己的网卡，所以这里我们嗅探自己的网卡.也可以使用ettercap获取用户的账号密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ettercap -Tq -i eth0</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-43.png" alt="upload successful"></p>
+<p><img src="/images/pasted-42.png" alt="upload successful"></p>
+<h4 id="ARP欺骗防御"><a href="#ARP欺骗防御" class="headerlink" title="ARP欺骗防御"></a>ARP欺骗防御</h4><p><a href="https://www.zhihu.com/question/23401171" target="_blank" rel="noopener">这里关于ARP欺骗的防御讲得很好</a></p>
 
       
       <!-- reward -->
@@ -177,7 +211,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/09/%E9%9A%8F%E7%AC%94/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/09/ARP%E5%8D%8F%E8%AE%AE%E5%8F%8A%E6%94%BB%E5%87%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -193,19 +227,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/06/09/ARP%E5%8D%8F%E8%AE%AE%E5%8F%8A%E6%94%BB%E5%87%BB/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            ARP协议
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/06/07/XSS-O1/" class="article-nav-link">
+      <a href="/2020/06/09/%E9%9A%8F%E7%AC%94/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">XSS</div>
+        <div class="article-nav-title">随笔</div>
       </a>
     
   </nav>
