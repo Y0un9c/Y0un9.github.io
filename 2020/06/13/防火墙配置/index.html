@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>防火墙配置 | null</title><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css"><script>var GLOBAL = { 
+  root: '/',
+  algolia: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script><link rel="icon" href="/favicon.ico"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#防火墙的基本功能"><span class="toc-number">1.</span> <span class="toc-text">防火墙的基本功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#防火墙区域隔离"><span class="toc-number">2.</span> <span class="toc-text">防火墙区域隔离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#防火墙分类"><span class="toc-number">3.</span> <span class="toc-text">防火墙分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#状态检测FW工作原理"><span class="toc-number">4.</span> <span class="toc-text">状态检测FW工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#衡量防火墙性能的五大指标"><span class="toc-number">5.</span> <span class="toc-text">衡量防火墙性能的五大指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#防火墙工作模式"><span class="toc-number">6.</span> <span class="toc-text">防火墙工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#透明模式"><span class="toc-number">6.1.</span> <span class="toc-text">透明模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#路由模式"><span class="toc-number">6.2.</span> <span class="toc-text">路由模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#混杂模式（标准应用）"><span class="toc-number">6.3.</span> <span class="toc-text">混杂模式（标准应用）</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Y0un9</div><div class="author-info__description text-center">Y0un9的博客</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">1</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://attach.bbs.miui.com/forum/201306/23/110328s72xxse7lfis9fnd.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/"></a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">防火墙配置</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-13 </time></div></div></div><div class="layout" id="content-inner"><article id="post"><div id="post-content"><h4 id="防火墙的基本功能"><a href="#防火墙的基本功能" class="headerlink" title="防火墙的基本功能"></a>防火墙的基本功能</h4><p> 防火墙能路由器实现路由器的所有功能。但防火墙的ip配好以后，左右两边均不连通。</p>
+<ol>
+<li>访问控制</li>
+<li>攻击防护</li>
+<li>冗余设计</li>
+<li>路由、交换</li>
+<li>日志记录</li>
+<li>虚拟网络VPN</li>
+<li>NAT</li>
+</ol>
+<h4 id="防火墙区域隔离"><a href="#防火墙区域隔离" class="headerlink" title="防火墙区域隔离"></a>防火墙区域隔离</h4><p>防火墙隔离出三个区域：trust、untrust、DMZ（隔离区），也可以依次表示为高、低、中。由上往下时一律放行，由下往上时不放行。</p>
+<p>trust区域用于存放核心数据，DMZ一般为服务器提供服务。untrust区域为互联网。注意DMZ区一定不能访问trust区，防止DMZ区域被渗透时，核心数据的泄露。（hacker可通过攻击DMZ上的某一台服务器拿到DMZ所有服务器的权限。）</p>
+<p><strong>防火墙只能做第一次的过滤，由trust区域访问互联网时，防火墙会通过返回的所有数据包，并不能检测出包内是否含有病毒，因此需要在trust与防火墙之间安装IPS</strong></p>
+<p><img src="/images/pasted-64.png" alt="upload successful"></p>
+<p>在web服务器前再放一台防火墙，用来过滤用户交互。这个防火墙就是WAF。一般的WAF产品价格都高于普通防火墙</p>
+<h4 id="防火墙分类"><a href="#防火墙分类" class="headerlink" title="防火墙分类"></a>防火墙分类</h4><ul>
+<li><p>按防火墙形态</p>
+<p>   硬件防火墙</p>
+<p>  软件防火墙</p>
+</li>
+</ul>
+<ul>
+<li><p>按防火墙技术</p>
+<p>  包过滤防火墙</p>
+<p>  WAF防火墙</p>
+<p>  应用(代理)防火墙</p>
+<p> 状态检测包防火墙</p>
+<p> 应用层防火墙</p>
+</li>
+</ul>
+<h4 id="状态检测FW工作原理"><a href="#状态检测FW工作原理" class="headerlink" title="状态检测FW工作原理"></a>状态检测FW工作原理</h4><p><img src="/images/pasted-65.png" alt="upload successful"></p>
+<p>当内网某个ip想要访问外网时，首先经过防火墙进行状态检测，如果在状态检测表中存在，则直接放行。会在状态检测表中添加此次会话，将源ip进行nat地址转换，发出数据包，会话维持的时间可自定义，一般是1min。如果在状态检测表中存在，则直接放行。</p>
+<p><img src="/images/pasted-66.png" alt="upload successful"></p>
+<h4 id="衡量防火墙性能的五大指标"><a href="#衡量防火墙性能的五大指标" class="headerlink" title="衡量防火墙性能的五大指标"></a>衡量防火墙性能的五大指标</h4><ol>
+<li>吞吐量：在不丢包的情况下单位时间内通过的数据报流量。</li>
+<li>时延：数据报第一个比特进入防火墙到最后一比特从防火墙输出的时间间隔。</li>
+<li>丢包率</li>
+<li>并发连接数：可以同时处理的点对点连接的最多数目。</li>
+<li>新建连接数：不丢包的情况下每秒可以建立的最大连接数。</li>
+</ol>
+<h4 id="防火墙工作模式"><a href="#防火墙工作模式" class="headerlink" title="防火墙工作模式"></a>防火墙工作模式</h4><h5 id="透明模式"><a href="#透明模式" class="headerlink" title="透明模式"></a>透明模式</h5><p>内网、外网及DMZ区处于同一网段,此时的防火墙相当于交换机，但仍可以做区域隔离。虽然不同区域处于同一网段，但彼此不能ping通。</p>
+<p>优点：朝网络中加入防火墙时，不会影响原本的网络结构，只需要装上防火墙，设置策略即可。此时防火墙工作在二层（数据链路层）</p>
+<p><img src="/images/pasted-67.png" alt="upload successful"></p>
+<h5 id="路由模式"><a href="#路由模式" class="headerlink" title="路由模式"></a>路由模式</h5><p>防火墙工作在三层,此时相当于三层交换机</p>
+<p><img src="/images/pasted-68.png" alt="upload successful"></p>
+<h5 id="混杂模式（标准应用）"><a href="#混杂模式（标准应用）" class="headerlink" title="混杂模式（标准应用）"></a>混杂模式（标准应用）</h5><p><img src="/images/pasted-69.png" alt="upload successful"></p>
+</div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a></div></article><nav id="pagination"><div class="next-post pull-right"><a href="/2020/06/11/SSRF%E5%8F%8Aweblogic%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98/"><span>SSRF及weblogic漏洞实战</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">©2013 - 2020 By Y0un9</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span> |  </span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/fancybox.js"></script><script src="/js/sidebar.js"></script><script src="/js/copy.js"></script><script src="/js/fireworks.js"></script><script src="/js/transition.js"></script><script src="/js/scroll.js"></script><script src="/js/head.js"></script></body></html>
