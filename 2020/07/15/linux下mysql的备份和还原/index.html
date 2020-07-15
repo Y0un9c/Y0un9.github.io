@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    linux下mysql的备份和还原 |  
+    Centos下关于mysql常用指令 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -55,7 +55,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  linux下mysql的备份和还原
+  Centos下关于mysql常用指令
 </h1>
  
 
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">4</span>
+            <span class="post-count">471</span>
         </span>
     </span>
 
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -95,6 +95,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -107,7 +109,66 @@
       
 
       
-      <p><a href="https://www.cnblogs.com/markLogZhu/p/11398028.html" target="_blank" rel="noopener">参考链接</a></p>
+      <h4 id="安装mysql-8-0"><a href="#安装mysql-8-0" class="headerlink" title="安装mysql 8.0"></a>安装mysql 8.0</h4><h5 id="卸载mariadb"><a href="#卸载mariadb" class="headerlink" title="卸载mariadb"></a>卸载mariadb</h5><p>查看mariadb安装包</p>
+<p><code>rpm -qa | grep mariadb</code></p>
+<p>卸载mariadb（将mariadb版本换为本机的版本）</p>
+<p><code>rpm -e mariadb-libs-5.5.60-1.el7_5.x86_64 --nodeps</code></p>
+<p>再次查看mariadb安装包</p>
+<p><code>rpm -qa | grep mariadb</code></p>
+<h5 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h5><p>下载Mysql yum包</p>
+<p><code>wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
+<p>安装软件源</p>
+<p><code>rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
+<p>安装mysql</p>
+<p><code>yum install -y mysql-community-server</code></p>
+<h4 id="启动配置mysql"><a href="#启动配置mysql" class="headerlink" title="启动配置mysql"></a>启动配置mysql</h4><p>启动命令</p>
+<p><code>service mysqld start</code></p>
+<p>查看服务状态</p>
+<p><code>service mysqld status</code></p>
+<p>查看MySQL默认密码</p>
+<p><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code></p>
+<p>登录MySQL</p>
+<p><code>mysql -u root -p passwd</code></p>
+<p>修改默认密码</p>
+<p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;</code></p>
+<p>开放MySQL外网访问</p>
+<p><code>use mysql</code></p>
+<p><code>update user set host=&#39;%&#39; where user=&#39;root&#39;;</code></p>
+<p><code>grant all privileges on test.* to root@&#39;%&#39;</code></p>
+<p>给予root权限</p>
+<p><code>FLUSH PRIVILEGES;</code></p>
+<p>重启MySQL</p>
+<p><code>service mysqld restart</code></p>
+<h4 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h4><p>mysql默认在3306端口访问，但centos7防火墙默认不允许3306端口被访问</p>
+<p>查看centos7 firewalld 的运行状态</p>
+<p><code>systemctl status firewalld</code></p>
+<p>查看防火墙运行主机被访问的端口</p>
+<p><code>firewall-cmd --zone=public --list-ports</code></p>
+<p>开放3306端口</p>
+<p><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent</code><br>重启防火墙</p>
+<p><code>firewall-cmd --reload</code></p>
+<p>再次查看firewalld防火墙开放的端口列表</p>
+<p><code>firewall-cmd --zone=public --list-ports</code></p>
+<p>此后就可以用navicat等工具进行连接了。</p>
+<h4 id="使用mysqldump进行mysql备份与恢复"><a href="#使用mysqldump进行mysql备份与恢复" class="headerlink" title="使用mysqldump进行mysql备份与恢复"></a>使用mysqldump进行mysql备份与恢复</h4><h5 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h5><p>备份所有数据库</p>
+<p><code>mysqldump -uroot -p --all-databases &gt; /mysql/beifen/all.db</code></p>
+<p>备份指定数据库</p>
+<p><code>mysqldump -uroot -p test &gt; /mysql/beifen/test.db</code></p>
+<h5 id="还原"><a href="#还原" class="headerlink" title="还原"></a>还原</h5><p>可用系统行命令和source方法</p>
+<ul>
+<li>系统行命令</li>
+</ul>
+<p><code>mysqladmin -uroot -p create db_name</code></p>
+<p><code>mysql -uroot -p  db_name &lt; /backup/mysqldump/db_name.db</code></p>
+<p>注：在导入备份数据库前，db_name如果没有，是需要创建的； 而且与db_name.db中数据库名是一样的才可以导入。</p>
+<ul>
+<li>source方法</li>
+</ul>
+<p><code>mysql &gt; use db_name</code></p>
+<p><code>mysql &gt; source /backup/mysqldump/db_name.db</code></p>
+<p><a href="https://www.cnblogs.com/markLogZhu/p/11398028.html" target="_blank" rel="noopener">参考链接</a></p>
+<p><a href="https://baijiahao.baidu.com/s?id=1653056691945263760&wfr=spider&for=pc" target="_blank" rel="noopener">参考链接</a></p>
+<p><a href="https://blog.csdn.net/zhouzhiwengang/article/details/102909298" target="_blank" rel="noopener">参考链接</a></p>
 
       
       <!-- reward -->
