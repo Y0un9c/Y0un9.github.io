@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-15T13:53:25.613Z</updated>
+  <updated>2020-07-22T16:49:19.102Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Centos下关于mysql常用指令</title>
+    <title>域基础-1</title>
+    <link href="http://yoursite.com/2020/07/16/%E5%9F%9F%E5%9F%BA%E7%A1%80-1/"/>
+    <id>http://yoursite.com/2020/07/16/%E5%9F%9F%E5%9F%BA%E7%A1%80-1/</id>
+    <published>2020-07-16T03:21:47.000Z</published>
+    <updated>2020-07-22T16:49:19.102Z</updated>
+    
+    <content type="html"><![CDATA[<p>内网环境分为域和工作组</p><ol><li>工作组：默认模式，人人平等。</li><li>域：人人不平等，集中统一管理。（域的特点）</li></ol><h4 id="域："><a href="#域：" class="headerlink" title="域："></a>域：</h4><ol><li><p>域的组成：</p><ul><li><p>域控制器：DC。有了DC就有了域</p></li><li><p>成员机：成员机之间是平等的。</p></li></ul></li></ol><p>每个域都有一个域名，域中的每个主机都有自己的域名。如域名为a.com，则DC为dc.a.com，其中一台成员机名为tom，则该成员机域名为tom.a.com</p><p>DC在注册的时候必须同时注册为DNS服务器，上面同时装有DC软件和DNS软件。加入域的成员机会自动注册域名和IP，无需单独配置。</p><p>DC上有一张活动目录表（AD），存放着企业所有的公共资源，在上面可以建造域资源（域账号），该账号可以登录域内的所有主机。（当使用域账号登录成员主机时，会向DC发出解析请求，DC检查AD中是含有该账号，含有则登录） </p><p><strong>域中DC最重要，DC中AD最重要</strong></p><p>  通常企业内所有员工都使用域账号登录，本地账号作废</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;内网环境分为域和工作组&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;工作组：默认模式，人人平等。&lt;/li&gt;
+&lt;li&gt;域：人人不平等，集中统一管理。（域的特点）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;域：&quot;&gt;&lt;a href=&quot;#域：&quot; class=&quot;headerlink&quot; title=&quot;域：&quot;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Centos7下关于mysql常用指令</title>
     <link href="http://yoursite.com/2020/07/15/linux%E4%B8%8Bmysql%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/"/>
     <id>http://yoursite.com/2020/07/15/linux%E4%B8%8Bmysql%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/</id>
     <published>2020-07-15T08:03:28.000Z</published>
-    <updated>2020-07-15T13:53:25.613Z</updated>
+    <updated>2020-07-22T16:49:44.147Z</updated>
     
     <content type="html"><![CDATA[<h4 id="安装mysql-8-0"><a href="#安装mysql-8-0" class="headerlink" title="安装mysql 8.0"></a>安装mysql 8.0</h4><h5 id="卸载mariadb"><a href="#卸载mariadb" class="headerlink" title="卸载mariadb"></a>卸载mariadb</h5><p>查看mariadb安装包</p><p><code>rpm -qa | grep mariadb</code></p><p>卸载mariadb（将mariadb版本换为本机的版本）</p><p><code>rpm -e mariadb-libs-5.5.60-1.el7_5.x86_64 --nodeps</code></p><p>再次查看mariadb安装包</p><p><code>rpm -qa | grep mariadb</code></p><h5 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h5><p>下载Mysql yum包</p><p><code>wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p><p>安装软件源</p><p><code>rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p><p>安装mysql</p><p><code>yum install -y mysql-community-server</code></p><h4 id="启动配置mysql"><a href="#启动配置mysql" class="headerlink" title="启动配置mysql"></a>启动配置mysql</h4><p>启动命令</p><p><code>service mysqld start</code></p><p>查看服务状态</p><p><code>service mysqld status</code></p><p>查看MySQL默认密码</p><p><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code></p><p>登录MySQL</p><p><code>mysql -u root -p passwd</code></p><p>修改默认密码</p><p><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;</code></p><p>开放MySQL外网访问</p><p><code>use mysql</code></p><p><code>update user set host=&#39;%&#39; where user=&#39;root&#39;;</code></p><p><code>grant all privileges on test.* to root@&#39;%&#39;</code></p><p>给予root权限</p><p><code>FLUSH PRIVILEGES;</code></p><p>重启MySQL</p><p><code>service mysqld restart</code></p><h4 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h4><p>mysql默认在3306端口访问，但centos7防火墙默认不允许3306端口被访问</p><p>查看centos7 firewalld 的运行状态</p><p><code>systemctl status firewalld</code></p><p>查看防火墙运行主机被访问的端口</p><p><code>firewall-cmd --zone=public --list-ports</code></p><p>开放3306端口</p><p><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent</code><br>重启防火墙</p><p><code>firewall-cmd --reload</code></p><p>再次查看firewalld防火墙开放的端口列表</p><p><code>firewall-cmd --zone=public --list-ports</code></p><p>此后就可以用navicat等工具进行连接了。</p><h4 id="使用mysqldump进行mysql备份与恢复"><a href="#使用mysqldump进行mysql备份与恢复" class="headerlink" title="使用mysqldump进行mysql备份与恢复"></a>使用mysqldump进行mysql备份与恢复</h4><h5 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h5><p>备份所有数据库</p><p><code>mysqldump -uroot -p --all-databases &gt; /mysql/beifen/all.db</code></p><p>备份指定数据库</p><p><code>mysqldump -uroot -p test &gt; /mysql/beifen/test.db</code></p><h5 id="还原"><a href="#还原" class="headerlink" title="还原"></a>还原</h5><p>可用系统行命令和source方法</p><ul><li>系统行命令</li></ul><p><code>mysqladmin -uroot -p create db_name</code></p><p><code>mysql -uroot -p  db_name &lt; /backup/mysqldump/db_name.db</code></p><p>注：在导入备份数据库前，db_name如果没有，是需要创建的； 而且与db_name.db中数据库名是一样的才可以导入。</p><ul><li>source方法</li></ul><p><code>mysql &gt; use db_name</code></p><p><code>mysql &gt; source /backup/mysqldump/db_name.db</code></p><p><a href="https://www.cnblogs.com/markLogZhu/p/11398028.html" target="_blank" rel="noopener">参考链接</a></p><p><a href="https://baijiahao.baidu.com/s?id=1653056691945263760&wfr=spider&for=pc" target="_blank" rel="noopener">参考链接</a></p><p><a href="https://blog.csdn.net/zhouzhiwengang/article/details/102909298" target="_blank" rel="noopener">参考链接</a></p>]]></content>
     
@@ -161,29 +188,6 @@
     
     
       <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>随笔</title>
-    <link href="http://yoursite.com/2020/06/09/%E9%9A%8F%E7%AC%94/"/>
-    <id>http://yoursite.com/2020/06/09/%E9%9A%8F%E7%AC%94/</id>
-    <published>2020-06-09T06:47:08.000Z</published>
-    <updated>2020-06-09T09:14:12.423Z</updated>
-    
-    <content type="html"><![CDATA[<p>一个月来断断续续还是写了一些技术文章了，算是记录下自己成长的过程，还有很多东西在另外的博客上，懒得搬过来了。</p><p>   最近正是梅雨时节，南方的天气诡异，一天晴一天雨，这样诡异的天气也正好赶走酷暑，比起一个月前的37°，这段时间是很舒服的。写完报告躺了一会睡不着，还是从床上爬起来了，想来最近白天夜晚的睡不着也和心情有关。最近不知道在想些什么，总觉得烦躁不安，希望可以早日摆脱负面情绪。</p><p>   临近期末，考试、项目、比赛在这段时间同时压上来了，事情还是挺多，不想那么多了，好好做事吧。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;一个月来断断续续还是写了一些技术文章了，算是记录下自己成长的过程，还有很多东西在另外的博客上，懒得搬过来了。&lt;/p&gt;
-&lt;p&gt;   最近正是梅雨时节，南方的天气诡异，一天晴一天雨，这样诡异的天气也正好赶走酷暑，比起一个月前的37°，这段时间是很舒服的。写完报告躺了一会睡不着，
-      
-    
-    </summary>
-    
-    
     
   </entry>
   

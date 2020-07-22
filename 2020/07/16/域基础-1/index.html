@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    随笔 |  
+    域基础-1 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-随笔" class="article article-type-post" itemscope
+  <article id="post-域基础-1" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -55,7 +55,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  随笔
+  域基础-1
 </h1>
  
 
@@ -64,8 +64,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/06/09/%E9%9A%8F%E7%AC%94/" class="article-date">
-  <time datetime="2020-06-09T06:47:08.000Z" itemprop="datePublished">2020-06-09</time>
+      <a href="/2020/07/16/%E5%9F%9F%E5%9F%BA%E7%A1%80-1/" class="article-date">
+  <time datetime="2020-07-16T03:21:47.000Z" itemprop="datePublished">2020-07-16</time>
 </a>
       
       
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">207</span>
+            <span class="post-count">294</span>
         </span>
     </span>
 
@@ -95,6 +95,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -107,9 +109,26 @@
       
 
       
-      <p>一个月来断断续续还是写了一些技术文章了，算是记录下自己成长的过程，还有很多东西在另外的博客上，懒得搬过来了。</p>
-<p>   最近正是梅雨时节，南方的天气诡异，一天晴一天雨，这样诡异的天气也正好赶走酷暑，比起一个月前的37°，这段时间是很舒服的。写完报告躺了一会睡不着，还是从床上爬起来了，想来最近白天夜晚的睡不着也和心情有关。最近不知道在想些什么，总觉得烦躁不安，希望可以早日摆脱负面情绪。</p>
-<p>   临近期末，考试、项目、比赛在这段时间同时压上来了，事情还是挺多，不想那么多了，好好做事吧。</p>
+      <p>内网环境分为域和工作组</p>
+<ol>
+<li>工作组：默认模式，人人平等。</li>
+<li>域：人人不平等，集中统一管理。（域的特点）</li>
+</ol>
+<h4 id="域："><a href="#域：" class="headerlink" title="域："></a>域：</h4><ol>
+<li><p>域的组成：</p>
+<ul>
+<li><p>域控制器：DC。有了DC就有了域</p>
+</li>
+<li><p>成员机：成员机之间是平等的。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>每个域都有一个域名，域中的每个主机都有自己的域名。如域名为a.com，则DC为dc.a.com，其中一台成员机名为tom，则该成员机域名为tom.a.com</p>
+<p>DC在注册的时候必须同时注册为DNS服务器，上面同时装有DC软件和DNS软件。加入域的成员机会自动注册域名和IP，无需单独配置。</p>
+<p>DC上有一张活动目录表（AD），存放着企业所有的公共资源，在上面可以建造域资源（域账号），该账号可以登录域内的所有主机。（当使用域账号登录成员主机时，会向DC发出解析请求，DC检查AD中是含有该账号，含有则登录） </p>
+<p><strong>域中DC最重要，DC中AD最重要</strong></p>
+<p>  通常企业内所有员工都使用域账号登录，本地账号作废</p>
 
       
       <!-- reward -->
@@ -178,7 +197,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/09/%E9%9A%8F%E7%AC%94/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/16/%E5%9F%9F%E5%9F%BA%E7%A1%80-1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -194,19 +213,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/06/09/ARP%E5%8D%8F%E8%AE%AE%E5%8F%8A%E6%94%BB%E5%87%BB/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            ARP协议
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/06/07/XSS-O1/" class="article-nav-link">
+      <a href="/2020/07/15/linux%E4%B8%8Bmysql%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E8%BF%98%E5%8E%9F/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">XSS</div>
+        <div class="article-nav-title">Centos7下关于mysql常用指令</div>
       </a>
     
   </nav>
