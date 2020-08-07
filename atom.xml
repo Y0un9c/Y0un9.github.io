@@ -66,6 +66,33 @@
   </entry>
   
   <entry>
+    <title>sql注入中的一些常用函数</title>
+    <link href="http://yoursite.com/2020/08/03/sql%E6%B3%A8%E5%85%A5%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/2020/08/03/sql%E6%B3%A8%E5%85%A5%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</id>
+    <published>2020-08-03T09:18:47.000Z</published>
+    <updated>2020-08-07T11:23:04.489Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p><code>substr(str from index)</code></p><p>  从index位置开始截取</p></li><li><p><code>substr(str from index for len)</code></p><p>  截取str，从index开始，截取长度为len。（逗号被过滤时使用）</p></li><li><p><code>if(test, a, b)</code> </p><p>  如果 test 是真，返回 a ，否则返回 b</p></li><li><p><code>ifnull(arg1, arg2)</code> </p><p>  如果 arg1 不是空，返回 arg1 ，否则返回 arg2</p></li><li><p><code>nullif(arg1, arg2)</code> </p><p>  如果 arg1 和 arg2 相等，返回 null，否则返回 arg1</p></li><li><p><code>CASE WHEN [test] THEN [result] ELSE [default] END</code></p><p>  如果 test 为真，则返回 result 否则返回 default</p></li><li><p><code>CASE [test] WHEN [val] THEN [result] ELSE [default] END</code></p><p>  如果 test 和 val 相等，则返回 result ，否则返回 default。一般在if被过滤时使用</p></li></ul><ul><li><p>char()(在引号被过滤时要传递字符串时使用)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select char(97); &#x3D;&#x3D;&gt; select &#39;a&#39;;</span><br><span class="line"></span><br><span class="line">select char(97,98,99); &#x3D;&#x3D;&gt; select &#39;abc&#39;</span><br></pre></td></tr></table></figure></li><li><p><code>mid(str,index,len)</code></p><p>  截取str，从index开始，截取长度为len</p></li><li><p><code>left(str,len)</code></p><p>  截取str，从左边第一个开始截取，截取长度为len。right()同理</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left(&quot;123&quot;,2) &#x3D;&#x3D;&gt;12</span><br></pre></td></tr></table></figure></li><li><p>ord() 函数返回字符串第一个字符的 ASCII 值。在ascii()被禁用时使用。</p></li></ul><ul><li><p><code>LPAD(str,len,padstr)</code></p><p>返回字符串 str, 其左边由字符串padstr 填补到len 字符长度。假如str 的长度大于len, 则返回值被缩短至 len 字符。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpad((&quot;123&quot;),50,&#39;0&#39;)</span><br></pre></td></tr></table></figure></li><li><p><code>RPAD(str,len,padstr)</code></p><p>返回字符串 str, 其右边由字符串padstr 填补到len 字符长度。假如str 的长度大于len, 则返回值被缩短至 len 字符。</p></li></ul><ul><li><p><code>sql trim(Afrom(B))</code></p><p>  把字符串B中的A删去，返回剩余部分</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;substr(str from index)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  从index位置开始截取&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;substr(str from index for len)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>[BJDCTF2020]Cookie is so stable</title>
     <link href="http://yoursite.com/2020/07/28/BJDCTF2020-Cookie-is-so-stable/"/>
     <id>http://yoursite.com/2020/07/28/BJDCTF2020-Cookie-is-so-stable/</id>
@@ -501,33 +528,6 @@
       <category term="python反序列化" scheme="http://yoursite.com/tags/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     
       <category term="jwt" scheme="http://yoursite.com/tags/jwt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python序列化以及对应魔术方法</title>
-    <link href="http://yoursite.com/2020/05/16/python%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%A5%E5%8F%8A%E5%AF%B9%E5%BA%94%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2020/05/16/python%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%A5%E5%8F%8A%E5%AF%B9%E5%BA%94%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/</id>
-    <published>2020-05-16T09:10:00.000Z</published>
-    <updated>2020-07-09T16:24:30.978Z</updated>
-    
-    <content type="html"><![CDATA[<p>ctf中python序列化和反序列的题目还是挺多的，一般在利用反序列化时都会涉及到对应的魔术方法，和php很类似。在这里也做个总结，免得遇到的时候四处查。</p><h2 id="pickle模块"><a href="#pickle模块" class="headerlink" title="pickle模块"></a>pickle模块</h2><ol><li><p>pickle模块只能在python中使用，且只支持python的基础数据类型</p></li><li><p>序列化的时候，只是序列化了整个序列对象，而不是内存地址。</p></li><li><p>序列化：</p><ul><li><p><code>pickle.dump()</code>方法将obj对象序列化为bytes写入到file文件中</p><p><code>pickle.dump(obj, file, protocol=None, *, fix_imports=True)</code></p></li></ul><ul><li><p><code>pickle.dumps()</code>方法将obj对象序列化并返回一个bytes对象</p><p><code>pickle.dumps(obj, protocol=None, *, fix_imports=True)</code></p></li></ul></li><li><p>反序列化：</p><ul><li><p><code>pickle.load()</code>从一个对象文件中读取序列化数据，将其反序列化之后返回一个对象</p><p><code>pickle.load(file, *, fix_imports=True, encoding=&quot;ASCII&quot;, errors=&quot;strict&quot;)</code></p></li></ul><ul><li><p><code>pickle.loads()</code>将bytes反序列化并返回一个对象</p><p><code>pickle.loads(bytes_object, *, fix_imports=True, encoding=&quot;ASCII&quot;, errors=&quot;strict&quot;)</code></p></li></ul></li></ol><h2 id="序列化与反序列化中使用的魔术方法"><a href="#序列化与反序列化中使用的魔术方法" class="headerlink" title="序列化与反序列化中使用的魔术方法"></a>序列化与反序列化中使用的魔术方法</h2><p><img src="/2020/05/16/python%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%A5%E5%8F%8A%E5%AF%B9%E5%BA%94%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/1.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;ctf中python序列化和反序列的题目还是挺多的，一般在利用反序列化时都会涉及到对应的魔术方法，和php很类似。在这里也做个总结，免得遇到的时候四处查。&lt;/p&gt;
-&lt;h2 id=&quot;pickle模块&quot;&gt;&lt;a href=&quot;#pickle模块&quot; class=&quot;headerlink
-      
-    
-    </summary>
-    
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="序列化" scheme="http://yoursite.com/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     
   </entry>
   
